@@ -1,0 +1,2948 @@
+/* =========================================================
+   BASIC RESET
+   Removes some of the browser's default spacing.
+   ========================================================= */
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    background-color: var(--background);
+    color: #f4f6f8;
+
+    line-height: 1.6;
+}
+
+
+/* =========================================================
+   COLORS
+   These variables let us reuse the same colors everywhere.
+   ========================================================= */
+
+:root {
+    --background: #090909;
+
+    --panel: #121212;
+
+    --panel-light: #1a1a19;
+
+    --border: #30302d;
+
+    --text: #f2f0e9;
+
+    --muted-text: #96938a;
+
+    --accent: #d6a85f;
+
+    --accent-dark: #a77c3e;
+}
+
+
+/* =========================================================
+   LINKS
+   ========================================================= */
+
+a {
+    color: var(--text);
+    text-decoration: none;
+
+    transition:
+        color 0.2s ease,
+        background-color 0.2s ease,
+        border-color 0.2s ease;
+}
+
+a:hover {
+    color: var(--accent);
+}
+
+
+/* =========================================================
+   GAME HEADER / HUD
+   This header now sits on top of the game world.
+   ========================================================= */
+
+#game-header {
+    position: absolute;
+
+    top: 0;
+    left: 0;
+    right: 0;
+
+    z-index: 2000;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 30px 3%;
+
+    pointer-events: none;
+}
+
+
+/* Name + "Interactive Portfolio" */
+
+#game-header .identity {
+    display: flex;
+    align-items: baseline;
+
+    gap: 20px;
+}
+
+
+#game-header h1 {
+    margin: 0;
+
+    font-size: 1.4rem;
+
+    letter-spacing: -0.03em;
+}
+
+
+#game-header .identity p {
+    margin: 0;
+
+    color: var(--muted-text);
+
+    font-size: 0.85rem;
+}
+
+
+/* GitHub / LinkedIn / Email */
+
+#game-header .social-links {
+    display: flex;
+
+    gap: 20px;
+
+    pointer-events: auto;
+}
+
+
+#game-header .social-links a {
+    font-size: 0.85rem;
+}
+
+/* =========================================================
+   MAIN PAGE GRID
+
+   On desktop:
+       ROOM | SIDEBAR
+
+   Everything after those two sections spans the full width.
+   ========================================================= */
+
+main {
+    width: 100%;
+}
+
+
+/* =========================================================
+   INTERACTIVE ROOM PLACEHOLDER
+   ========================================================= */
+
+#game-area {
+    width: 100%;
+
+    min-height: 100vh;
+
+    position: relative;
+
+    overflow: hidden;
+
+    background:
+        radial-gradient(
+            circle at 50% 40%,
+            #24211c 0%,
+            #141311 50%,
+            #090909 100%
+        );
+
+    border-bottom: 1px solid var(--border);
+}
+
+#game-area h2 {
+    margin-top: 0;
+
+    font-size: 1rem;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.15em;
+
+    color: var(--muted-text);
+}
+
+#game-area > p {
+    max-width: 500px;
+
+    color: var(--muted-text);
+}
+
+/* =========================================================
+   ROOM / GAME WORLD
+   ========================================================= */
+
+#room {
+    position: absolute;
+
+    inset: 0;
+
+    overflow: hidden;
+
+    background-color: #11100f;
+}
+
+
+/* =========================================================
+   BACK WALL
+
+   The wall takes up the upper part of the room.
+   About, Experience, and Skills live here.
+   ========================================================= */
+
+.back-wall {
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 35%;
+
+    background:
+        linear-gradient(
+            to bottom,
+            #171614,
+            #12110f
+        );
+
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+
+/* =========================================================
+   FLOOR
+
+   Dark wooden floor with subtle perspective.
+   ========================================================= */
+
+.floor {
+    position: absolute;
+
+    left: 0;
+    bottom: 0;
+
+    width: 100%;
+    height: 68%;
+
+    background:
+        /* slight darkening toward the front of the room */
+        linear-gradient(
+            to bottom,
+            rgba(255, 255, 255, 0.02),
+            rgba(0, 0, 0, 0.45)
+        ),
+
+        /* vertical seams between floorboards */
+        repeating-linear-gradient(
+            90deg,
+            transparent 0,
+            transparent 84px,
+            rgba(0, 0, 0, 0.22) 85px,
+            rgba(0, 0, 0, 0.22) 86px
+        ),
+
+        /* subtle alternating wood strips */
+        repeating-linear-gradient(
+            0deg,
+            #1b1814 0,
+            #1b1814 32px,
+            #181510 33px,
+            #181510 64px
+        );
+
+    clip-path: polygon(
+        8% 0%,
+        92% 0%,
+        100% 100%,
+        0% 100%
+    );
+
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+
+    box-shadow:
+        inset 0 35px 70px rgba(0, 0, 0, 0.25);
+}
+/* =========================================================
+   ROOM ATMOSPHERE / DECORATION
+   ========================================================= */
+
+
+/* ---------------------------------------------------------
+   WINDOW
+   --------------------------------------------------------- */
+
+.room-window {
+    position: absolute;
+
+    z-index: 2;
+
+    top: 8%;
+    left: 19%;
+
+    width: 135px;
+    height: 150px;
+
+    padding: 8px;
+
+    background-color: #2b2824;
+
+    border: 5px solid #37322c;
+
+    box-shadow:
+        8px 10px 22px rgba(0, 0, 0, 0.35);
+}
+
+
+.window-glass {
+    position: relative;
+
+    width: 100%;
+    height: 100%;
+
+    overflow: hidden;
+
+    background:
+        linear-gradient(
+            155deg,
+            #353a3d 0%,
+            #202527 48%,
+            #141819 100%
+        );
+}
+
+
+/* very subtle reflected light */
+
+.window-glass::after {
+    content: "";
+
+    position: absolute;
+
+    top: -30%;
+    left: -10%;
+
+    width: 55%;
+    height: 150%;
+
+    transform: rotate(22deg);
+
+    background:
+        linear-gradient(
+            to right,
+            transparent,
+            rgba(255, 255, 255, 0.06),
+            transparent
+        );
+}
+
+
+.window-pane {
+    position: absolute;
+
+    background-color: #302d29;
+}
+
+
+.vertical-pane {
+    top: 0;
+    bottom: 0;
+
+    width: 4px;
+
+    left: 50%;
+
+    transform: translateX(-50%);
+}
+
+
+.horizontal-pane {
+    left: 0;
+    right: 0;
+
+    height: 4px;
+
+    top: 50%;
+
+    transform: translateY(-50%);
+}
+
+
+/* ---------------------------------------------------------
+   POSTERS
+   Intentionally vague — later these can become your
+   actual subtle anime/media references.
+   --------------------------------------------------------- */
+
+.poster-group {
+    position: absolute;
+
+    z-index: 2;
+
+    top: 9%;
+    left: 52%;
+
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: 14px;
+}
+
+
+.poster {
+    display: flex;
+
+    align-items: flex-end;
+    justify-content: flex-start;
+
+    padding: 8px;
+
+    color: rgba(255, 255, 255, 0.45);
+
+    font-size: 0.55rem;
+
+    letter-spacing: 0.12em;
+
+    border: 3px solid #272522;
+
+    box-shadow:
+        5px 7px 14px rgba(0, 0, 0, 0.30);
+}
+
+
+.poster-one {
+    width: 65px;
+    height: 92px;
+
+    transform: rotate(-2deg);
+
+    background:
+        linear-gradient(
+            145deg,
+            #4c4945,
+            #242525 65%
+        );
+}
+
+
+.poster-two {
+    width: 72px;
+    height: 105px;
+
+    transform: rotate(2deg);
+
+    background:
+        linear-gradient(
+            155deg,
+            #2d3538,
+            #171a1c 70%
+        );
+}
+
+
+/* ---------------------------------------------------------
+   RUG
+   Grounds the desk and player in the room.
+   --------------------------------------------------------- */
+
+.room-rug {
+    position: absolute;
+
+    z-index: 1;
+
+    top: 48%;
+    left: 29%;
+
+    width: 39%;
+    height: 36%;
+
+    opacity: 0.65;
+
+    background:
+        repeating-linear-gradient(
+            90deg,
+            rgba(255, 255, 255, 0.018) 0,
+            rgba(255, 255, 255, 0.018) 3px,
+            transparent 3px,
+            transparent 9px
+        ),
+        #28231f;
+
+    clip-path: polygon(
+        8% 0,
+        92% 0,
+        100% 100%,
+        0 100%
+    );
+
+    box-shadow:
+        0 18px 30px rgba(0, 0, 0, 0.30);
+}
+
+
+/* ---------------------------------------------------------
+   FLOOR LAMP
+   Adds a warmer focal light near the résumé area.
+   --------------------------------------------------------- */
+
+.floor-lamp {
+    position: absolute;
+
+    z-index: 3;
+
+    top: 50%;
+    left: 13%;
+
+    width: 60px;
+    height: 190px;
+}
+
+
+.lamp-shade {
+    position: absolute;
+
+    z-index: 3;
+
+    top: 0;
+    left: 8px;
+
+    width: 48px;
+    height: 35px;
+
+    background-color: #8b7559;
+
+    clip-path: polygon(
+        20% 0,
+        80% 0,
+        100% 100%,
+        0 100%
+    );
+}
+
+
+.lamp-bulb {
+    position: absolute;
+
+    z-index: 2;
+
+    top: 27px;
+    left: 25px;
+
+    width: 14px;
+    height: 14px;
+
+    border-radius: 50%;
+
+    background-color: #c7a675;
+
+    box-shadow:
+        0 0 25px rgba(199, 166, 117, 0.22),
+        0 0 55px rgba(199, 166, 117, 0.12);
+}
+
+
+.lamp-pole {
+    position: absolute;
+
+    top: 32px;
+    left: 30px;
+
+    width: 5px;
+    height: 130px;
+
+    background-color: #3c3832;
+}
+
+
+.lamp-base {
+    position: absolute;
+
+    bottom: 5px;
+    left: 12px;
+
+    width: 40px;
+    height: 10px;
+
+    border-radius: 50%;
+
+    background-color: #35312d;
+}
+
+
+/* ---------------------------------------------------------
+   PLANT
+   Pure decoration.
+   --------------------------------------------------------- */
+
+.room-plant {
+    position: absolute;
+
+    z-index: 3;
+
+    left: 8%;
+    top: 72%;
+
+    width: 85px;
+    height: 110px;
+}
+
+
+.plant-pot {
+    position: absolute;
+
+    bottom: 0;
+    left: 24px;
+
+    width: 43px;
+    height: 39px;
+
+    background:
+        linear-gradient(
+            to bottom,
+            #4d4034,
+            #332b24
+        );
+
+    clip-path: polygon(
+        8% 0,
+        92% 0,
+        78% 100%,
+        22% 100%
+    );
+}
+
+
+.plant-leaf {
+    position: absolute;
+
+    width: 20px;
+    height: 60px;
+
+    border-radius: 100% 0 100% 0;
+
+    background-color: #39423a;
+
+    transform-origin: bottom center;
+}
+
+
+.leaf-one {
+    left: 33px;
+    top: 4px;
+
+    transform: rotate(-15deg);
+}
+
+
+.leaf-two {
+    left: 43px;
+    top: 8px;
+
+    transform: rotate(24deg);
+}
+
+
+.leaf-three {
+    left: 21px;
+    top: 19px;
+
+    transform: rotate(-45deg);
+}
+
+
+.leaf-four {
+    left: 51px;
+    top: 21px;
+
+    transform: rotate(50deg);
+}
+
+
+/* =========================================================
+   SUBTLE ROOM VIGNETTE
+
+   Helps keep the HUD readable and gives the scene depth.
+   ========================================================= */
+
+#room::after {
+    content: "";
+
+    position: absolute;
+
+    z-index: 2;
+
+    pointer-events: none;
+
+    inset: 0;
+
+    background:
+        linear-gradient(
+            to left,
+            rgba(0, 0, 0, 0.38) 0%,
+            transparent 28%
+        ),
+
+        linear-gradient(
+            to bottom,
+            rgba(0, 0, 0, 0.08) 0%,
+            transparent 25%,
+            rgba(0, 0, 0, 0.18) 100%
+        );
+}
+
+/* =========================================================
+   ROOM OBJECTS
+   ========================================================= */
+
+.room-object {
+    position: absolute;
+
+    filter:
+        drop-shadow(
+            0 14px 16px rgba(0, 0, 0, 0.28)
+        );
+}
+
+/* =========================================================
+   OBJECT LABELS
+   ========================================================= */
+
+.object-label {
+    margin-top: 10px;
+
+    text-align: left;
+}
+
+
+.object-label strong {
+    display: block;
+
+    color: var(--text);
+
+    font-size: 0.72rem;
+
+    letter-spacing: 0.08em;
+}
+
+
+.object-label span {
+    display: block;
+
+    margin-top: 2px;
+
+    color: var(--muted-text);
+
+    font-size: 0.65rem;
+}
+
+
+/* =========================================================
+   ABOUT — BOOKSHELF
+   ========================================================= */
+
+.bookshelf {
+    top: 14%;
+    left: 7%;
+}
+
+
+.bookshelf-visual {
+    width: 130px;
+    height: 145px;
+
+    padding: 10px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    background-color: #211d19;
+
+    border:
+        5px solid #332b24;
+
+    box-shadow:
+        10px 12px 18px rgba(0, 0, 0, 0.30);
+}
+
+
+.shelf-row {
+    height: 34px;
+
+    display: flex;
+    align-items: flex-end;
+
+    gap: 5px;
+
+    padding: 0 5px 4px;
+
+    border-bottom:
+        4px solid #3b3128;
+}
+
+
+.shelf-row span {
+    display: block;
+
+    width: 12px;
+
+    height: 22px;
+
+    background-color: #66594d;
+}
+
+
+.shelf-row span:nth-child(2) {
+    height: 29px;
+
+    background-color: #4d5660;
+}
+
+
+.shelf-row span:nth-child(3) {
+    height: 25px;
+
+    background-color: #725f50;
+}
+
+
+.shelf-row span:nth-child(4) {
+    height: 31px;
+
+    background-color: #41484d;
+}
+
+
+/* =========================================================
+   EXPERIENCE — BULLETIN BOARD
+   ========================================================= */
+
+.bulletin-board {
+    top: 10%;
+    left: 34%;
+}
+
+
+.bulletin-visual {
+    position: relative;
+
+    width: 160px;
+    height: 105px;
+
+    background-color: #584536;
+
+    border:
+        7px solid #302720;
+
+    box-shadow:
+        8px 10px 16px rgba(0, 0, 0, 0.28);
+}
+
+
+.paper {
+    position: absolute;
+
+    background-color: #d1c9b7;
+
+    box-shadow:
+        2px 3px 5px rgba(0, 0, 0, 0.30);
+}
+
+
+.paper-one {
+    width: 43px;
+    height: 52px;
+
+    left: 18px;
+    top: 16px;
+
+    transform: rotate(-5deg);
+}
+
+
+.paper-two {
+    width: 50px;
+    height: 34px;
+
+    left: 73px;
+    top: 22px;
+
+    transform: rotate(4deg);
+}
+
+
+.paper-three {
+    width: 35px;
+    height: 27px;
+
+    right: 10px;
+    bottom: 12px;
+
+    transform: rotate(-3deg);
+}
+
+
+/* =========================================================
+   SKILLS — TOOL SHELF
+   ========================================================= */
+
+.skills-shelf {
+    top: 17%;
+    left: 62%;
+}
+
+
+.skills-visual {
+    position: relative;
+
+    width: 140px;
+    height: 85px;
+
+    padding: 15px;
+
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-around;
+
+    background-color: #181817;
+
+    border-bottom:
+        8px solid #39332c;
+}
+
+
+.skills-top {
+    position: absolute;
+
+    top: 8px;
+    left: 10px;
+    right: 10px;
+
+    height: 4px;
+
+    background-color: #37332f;
+}
+
+
+.skills-item {
+    width: 24px;
+    height: 32px;
+
+    border-radius: 4px 4px 2px 2px;
+
+    background-color: #55544f;
+}
+
+
+.skills-item:nth-child(3) {
+    height: 42px;
+
+    background-color: #635d55;
+}
+
+
+.skills-item:nth-child(4) {
+    height: 26px;
+
+    background-color: #444b50;
+}
+
+
+/* =========================================================
+   PROJECTS — COMPUTER DESK
+   ========================================================= */
+
+.computer-desk {
+    top: 38%;
+    left: 32%;
+}
+
+
+/* The image container is also used by JavaScript
+   for collision and proximity calculations. */
+
+.desk-visual {
+    position: relative;
+
+    width: 390px;
+    height: 290px;
+
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+}
+
+
+.projects-desk-image {
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: contain;
+
+    pointer-events: none;
+
+    user-select: none;
+}
+
+
+.computer-desk .object-label {
+    margin-top: -10px;
+}
+
+
+.computer-desk .object-label strong {
+    font-size: 0.8rem;
+}
+
+
+/* =========================================================
+   RESUME — CAREER / DOCUMENT STATION
+
+   Resume is the second-most important destination after
+   Projects, so it gets its own real piece of furniture.
+   ========================================================= */
+
+.resume-folder {
+    top: 57%;
+    left: 17%;
+}
+
+
+.resume-visual {
+    position: relative;
+
+    width: 235px;
+    height: 165px;
+
+    transform: scale(1.04);
+
+    transform-origin: bottom center;
+}
+
+
+/* ---------------------------------------------------------
+   SMALL CONSOLE DESK
+   --------------------------------------------------------- */
+
+.resume-desk-back {
+    position: absolute;
+
+    z-index: 1;
+
+    left: 11px;
+    top: 62px;
+
+    width: 210px;
+    height: 22px;
+
+    background-color: #342b24;
+
+    transform: skewX(-9deg);
+}
+
+
+.resume-desk-surface {
+    position: absolute;
+
+    z-index: 2;
+
+    left: 0;
+    top: 76px;
+
+    width: 225px;
+    height: 32px;
+
+    background:
+        linear-gradient(
+            to bottom,
+            #594534,
+            #443427
+        );
+
+    transform: skewX(-9deg);
+
+    box-shadow:
+        0 13px 22px rgba(0, 0, 0, 0.34);
+}
+
+
+/* ---------------------------------------------------------
+   DESK LEGS
+   --------------------------------------------------------- */
+
+.resume-desk-leg {
+    position: absolute;
+
+    z-index: 1;
+
+    top: 103px;
+
+    width: 13px;
+    height: 58px;
+
+    background:
+        linear-gradient(
+            to right,
+            #29231e,
+            #3a3028
+        );
+}
+
+
+.resume-leg-left {
+    left: 26px;
+}
+
+
+.resume-leg-right {
+    right: 27px;
+}
+
+
+/* ---------------------------------------------------------
+   OPEN FOLDER
+   --------------------------------------------------------- */
+
+.resume-folder-shape {
+    position: absolute;
+
+    z-index: 3;
+
+    left: 48px;
+    top: 45px;
+
+    width: 115px;
+    height: 61px;
+
+    background:
+        linear-gradient(
+            140deg,
+            #725238,
+            #513923
+        );
+
+    transform:
+        rotate(3deg)
+        skewX(-4deg);
+
+    box-shadow:
+        4px 7px 9px rgba(0, 0, 0, 0.28);
+}
+
+
+/* Folder tab */
+
+.resume-folder-shape::before {
+    content: "";
+
+    position: absolute;
+
+    top: -12px;
+    left: 9px;
+
+    width: 45px;
+    height: 16px;
+
+    background-color: #65472f;
+}
+
+
+/* ---------------------------------------------------------
+   RÉSUMÉ PAPER
+   --------------------------------------------------------- */
+
+.resume-paper {
+    position: absolute;
+
+    z-index: 4;
+
+    left: 87px;
+    top: 10px;
+
+    width: 78px;
+    height: 102px;
+
+    padding: 12px 10px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #dbd7cc,
+            #bdb8ac
+        );
+
+    transform:
+        rotate(-4deg);
+
+    box-shadow:
+        5px 8px 12px rgba(0, 0, 0, 0.38);
+}
+
+
+.resume-paper-title {
+    margin-bottom: 12px;
+
+    color: #3a3833;
+
+    font-size: 0.48rem;
+    font-weight: bold;
+
+    letter-spacing: 0.11em;
+}
+
+
+.resume-line {
+    width: 76%;
+    height: 2px;
+
+    margin-bottom: 5px;
+
+    background-color: rgba(55, 53, 48, 0.35);
+}
+
+
+.resume-line-long {
+    width: 100%;
+}
+
+
+.resume-line-short {
+    width: 52%;
+}
+
+
+.resume-line.second-group {
+    margin-top: 12px;
+}
+
+
+/* ---------------------------------------------------------
+   PEN
+   --------------------------------------------------------- */
+
+.resume-pen {
+    position: absolute;
+
+    z-index: 5;
+
+    left: 176px;
+    top: 62px;
+
+    width: 4px;
+    height: 52px;
+
+    border-radius: 3px;
+
+    background-color: #27292b;
+
+    transform: rotate(34deg);
+}
+
+
+/* ---------------------------------------------------------
+   RESUME LABEL
+   --------------------------------------------------------- */
+
+.resume-folder .object-label strong {
+    font-size: 0.78rem;
+}
+/* =========================================================
+   INTERESTS
+   Football / viola / headphones
+   ========================================================= */
+
+.interests-corner {
+    top: 69%;
+    left: 51%;
+}
+
+
+.interests-visual {
+    width: 205px;
+    height: 90px;
+
+    position: relative;
+}
+
+
+/* Football */
+
+.football-shape {
+    position: absolute;
+
+    left: 0;
+    bottom: 12px;
+
+    width: 56px;
+    height: 36px;
+
+    border-radius: 50%;
+
+    background-color: #654630;
+
+    transform:
+        rotate(-20deg);
+
+    border:
+        2px solid #312319;
+}
+
+
+.football-shape::after {
+    content: "";
+
+    position: absolute;
+
+    left: 19px;
+    top: 7px;
+
+    width: 18px;
+    height: 3px;
+
+    background-color: #b0a592;
+
+    box-shadow:
+        0 6px 0 #b0a592;
+}
+
+
+/* Viola */
+
+.viola-shape {
+    position: absolute;
+
+    left: 85px;
+    bottom: 5px;
+
+    width: 38px;
+    height: 60px;
+
+    border-radius:
+        50% 50% 42% 42%;
+
+    background-color: #6b4930;
+
+    transform:
+        rotate(-9deg);
+
+    border:
+        2px solid #342318;
+}
+
+
+.viola-neck {
+    position: absolute;
+
+    width: 9px;
+    height: 55px;
+
+    left: 13px;
+    top: -45px;
+
+    background-color: #553923;
+}
+
+
+/* Headphones */
+
+.headphones-shape {
+    position: absolute;
+
+    right: 4px;
+    bottom: 15px;
+
+    width: 58px;
+    height: 50px;
+
+    border:
+        7px solid #343638;
+
+    border-bottom: none;
+
+    border-radius:
+        40px 40px 0 0;
+}
+
+
+.headphones-shape::before,
+.headphones-shape::after {
+    content: "";
+
+    position: absolute;
+
+    width: 14px;
+    height: 27px;
+
+    bottom: -8px;
+
+    border-radius: 5px;
+
+    background-color: #292b2e;
+}
+
+
+.headphones-shape::before {
+    left: -8px;
+}
+
+
+.headphones-shape::after {
+    right: -8px;
+}
+
+
+/* =========================================================
+   CONTACT — PHONE
+   ========================================================= */
+
+.contact-phone {
+    top: 74%;
+    left: 73%;
+}
+
+
+.phone-visual {
+    width: 48px;
+    height: 82px;
+
+    padding: 5px;
+
+    border-radius: 9px;
+
+    background-color: #202224;
+
+    border:
+        2px solid #44474a;
+
+    transform:
+        rotate(7deg);
+
+    box-shadow:
+        6px 10px 14px rgba(0, 0, 0, 0.35);
+}
+
+
+.phone-screen {
+    width: 100%;
+    height: 100%;
+
+    border-radius: 5px;
+
+    background:
+        linear-gradient(
+            160deg,
+            #252c32,
+            #0d1013
+        );
+}
+
+
+
+/* =========================================================
+   TEMPORARY PLAYER CHARACTER
+   ========================================================= */
+
+#player {
+    position: absolute;
+
+    left: 44%;
+    top: 68%;
+
+    width: 46px;
+    height: 70px;
+
+    z-index: 4;
+
+    transform:
+        translate(-50%, -85%)
+        scale(var(--player-scale, 1));
+
+    transform-origin: center bottom;
+
+    user-select: none;
+
+    outline: none;
+}
+
+
+/* =========================================================
+   PLAYER BODY
+   ========================================================= */
+
+.player-body {
+    position: relative;
+
+    width: 100%;
+    height: 100%;
+}
+
+
+/* Head */
+
+.player-head {
+    position: absolute;
+
+    z-index: 3;
+
+    top: 0;
+    left: 50%;
+
+    width: 25px;
+    height: 27px;
+
+    transform: translateX(-50%);
+
+    border-radius: 48%;
+
+    background-color: #c9b6a4;
+
+    border:
+        1px solid rgba(0, 0, 0, 0.3);
+}
+
+
+/* Torso */
+
+.player-torso {
+    position: absolute;
+
+    z-index: 2;
+
+    top: 23px;
+    left: 50%;
+
+    width: 31px;
+    height: 31px;
+
+    transform: translateX(-50%);
+
+    border-radius: 7px;
+
+    background:
+        linear-gradient(
+            to bottom,
+            #30343a,
+            #202329
+        );
+}
+
+
+/* Legs */
+
+.player-leg {
+    position: absolute;
+
+    z-index: 1;
+
+    top: 49px;
+
+    width: 9px;
+    height: 20px;
+
+    border-radius: 3px;
+
+    background-color: #17191d;
+
+    transform-origin: top center;
+}
+
+
+.player-leg-left {
+    left: 13px;
+}
+
+
+.player-leg-right {
+    right: 13px;
+}
+
+
+/* =========================================================
+   PLAYER SHADOW
+   ========================================================= */
+
+#player::after {
+    content: "";
+
+    position: absolute;
+
+    z-index: -1;
+
+    left: 50%;
+    bottom: -5px;
+
+    width: 34px;
+    height: 10px;
+
+    transform: translateX(-50%);
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            ellipse,
+            rgba(0, 0, 0, 0.5),
+            rgba(0, 0, 0, 0.08) 68%,
+            transparent 72%
+        );
+
+    filter: blur(1px);
+}
+
+
+/* =========================================================
+   WALKING ANIMATION
+   ========================================================= */
+
+#player.moving .player-leg-left {
+    animation:
+        walk-left 0.28s
+        ease-in-out
+        infinite alternate;
+}
+
+
+#player.moving .player-leg-right {
+    animation:
+        walk-right 0.28s
+        ease-in-out
+        infinite alternate;
+}
+
+
+@keyframes walk-left {
+
+    from {
+        transform: rotate(8deg);
+    }
+
+    to {
+        transform: rotate(-8deg);
+    }
+
+}
+
+
+@keyframes walk-right {
+
+    from {
+        transform: rotate(-8deg);
+    }
+
+    to {
+        transform: rotate(8deg);
+    }
+
+}
+
+
+/* Small walking bounce */
+
+#player.moving .player-body {
+    animation:
+        player-bounce 0.28s
+        ease-in-out
+        infinite alternate;
+}
+
+
+@keyframes player-bounce {
+
+    from {
+        transform: translateY(0);
+    }
+
+    to {
+        transform: translateY(-2px);
+    }
+
+}
+
+
+/* =========================================================
+   FACING DIRECTION
+   ========================================================= */
+
+#player.facing-left .player-head {
+    transform: translateX(-57%);
+}
+
+
+#player.facing-right .player-head {
+    transform: translateX(-43%);
+}
+
+
+/* Keyboard focus */
+
+#player:focus-visible {
+    filter:
+        drop-shadow(
+            0 0 6px rgba(255, 255, 255, 0.35)
+        );
+}
+
+#player:focus-visible {
+    outline: 2px solid rgba(255, 255, 255, 0.65);
+
+    outline-offset: 5px;
+}
+
+
+
+
+
+/* =========================================================
+   INTERACTION PROMPT
+   ========================================================= */
+
+#interaction-prompt {
+    position: absolute;
+
+    z-index: 12;
+
+    left: 44%;
+    top: 68%;
+
+    display: flex;
+    align-items: center;
+
+    gap: 8px;
+
+    padding: 7px 10px;
+
+    color: var(--text);
+
+    background-color: rgba(10, 10, 10, 0.88);
+
+    border:
+        1px solid rgba(255, 255, 255, 0.14);
+
+    font-size: 0.65rem;
+
+    letter-spacing: 0.08em;
+
+    transform:
+        translate(
+            -50%,
+            calc(-100% - 28px)
+        );
+
+    opacity: 0;
+    visibility: hidden;
+
+    pointer-events: none;
+
+    transition:
+        opacity 0.15s ease,
+        visibility 0.15s ease;
+}
+
+
+#interaction-prompt.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+
+.interaction-key {
+    min-width: 24px;
+    height: 24px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    border:
+        1px solid rgba(255, 255, 255, 0.25);
+
+    background-color:
+        rgba(255, 255, 255, 0.07);
+
+    color: var(--text);
+
+    font-weight: bold;
+}
+
+
+/* =========================================================
+   PORTFOLIO GAME MENU / HUD
+
+   This menu now floats ON TOP of the game world
+   instead of sitting beside it as a separate webpage column.
+   ========================================================= */
+
+#portfolio-menu {
+    position: absolute;
+
+    top: 120px;
+    right: 3%;
+
+    z-index: 2000;
+
+    width: 250px;
+
+    padding: 10px 0;
+
+    background: transparent;
+
+    border: none;
+
+    border-radius: 0;
+
+}
+
+
+/* =========================================================
+   PORTFOLIO MENU HEADING
+   ========================================================= */
+
+#portfolio-menu h2 {
+    margin: 0 0 5px;
+
+    font-size: 1.15rem;
+}
+
+
+#portfolio-menu .menu-heading p {
+    margin: 0 0 20px;
+
+    color: var(--muted-text);
+
+    font-size: 0.8rem;
+}
+
+
+/* =========================================================
+   PORTFOLIO MENU LIST
+   ========================================================= */
+
+#portfolio-menu ul {
+    list-style: none;
+
+    margin: 0;
+
+    padding: 0;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 4px;
+}
+
+
+/* =========================================================
+   INDIVIDUAL MENU LINKS
+   ========================================================= */
+
+#portfolio-menu a {
+    display: grid;
+
+    grid-template-columns: 32px 1fr;
+
+    align-items: center;
+
+    gap: 10px;
+
+    padding: 10px;
+
+    border-radius: 8px;
+
+    color: var(--muted-text);
+
+    transition:
+        color 0.2s ease,
+        background-color 0.2s ease,
+        transform 0.2s ease;
+}
+
+
+#portfolio-menu a:hover {
+    color: var(--text);
+
+    background-color: rgba(255, 255, 255, 0.04);
+
+    transform: translateX(-4px);
+
+}
+
+
+/* =========================================================
+   MENU NUMBERS
+   ========================================================= */
+
+.menu-number {
+    font-size: 0.65rem;
+
+    color: #666;
+}
+
+
+/* =========================================================
+   MENU TITLES
+   ========================================================= */
+
+#portfolio-menu strong {
+    display: block;
+
+    font-size: 0.85rem;
+
+    font-weight: 500;
+}
+
+
+/* =========================================================
+   MENU DESCRIPTIONS
+   ========================================================= */
+
+#portfolio-menu small {
+    display: block;
+
+    margin-top: 2px;
+
+    color: #707070;
+
+    font-size: 0.7rem;
+}
+
+
+
+/* =========================================================
+   GENERAL PORTFOLIO SECTIONS
+   ========================================================= */
+
+main > section:not(#game-area) {
+    grid-column: 1 / -1;
+
+    padding: 45px;
+
+    border: 1px solid var(--border);
+    border-radius: 18px;
+
+    background-color: var(--panel);
+}
+
+main > section:not(#game-area) > h2 {
+    margin-top: 0;
+
+    font-size: 2rem;
+
+    letter-spacing: -0.04em;
+}
+
+main > section:not(#game-area) > p {
+    color: var(--muted-text);
+}
+
+
+/* =========================================================
+   ABOUT SECTION
+   ========================================================= */
+
+#about > div {
+    width: 180px;
+    height: 180px;
+
+    margin: 25px 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 1px dashed var(--border);
+    border-radius: 15px;
+
+    background-color: var(--panel-light);
+
+    color: var(--muted-text);
+
+    text-align: center;
+}
+
+
+/* =========================================================
+   PROJECTS
+   ========================================================= */
+
+#projects {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 20px;
+}
+
+
+/* Keep the title and introduction across both columns */
+
+#projects > h2,
+#projects > p {
+    grid-column: 1 / -1;
+}
+
+
+/* Individual project cards */
+
+#projects article {
+    min-height: 230px;
+
+    padding: 25px;
+
+    border: 1px solid var(--border);
+    border-radius: 14px;
+
+    background-color: var(--panel-light);
+
+    transition:
+        transform 0.2s ease,
+        border-color 0.2s ease;
+}
+
+#projects article:hover {
+    transform: translateY(-4px);
+
+    border-color: #465872;
+}
+
+#projects article h3 {
+    margin-top: 0;
+}
+
+#projects article p {
+    color: var(--muted-text);
+}
+
+#projects article a {
+    display: inline-block;
+
+    margin-top: 10px;
+
+    padding-bottom: 3px;
+
+    border-bottom: 1px solid var(--accent);
+}
+/* =========================================================
+   PROJECTS COLLISION FOOTPRINT
+
+   The artwork is much larger than the actual physical desk,
+   so collision uses this smaller invisible rectangle.
+   ========================================================= */
+
+   /* =========================================================
+   PROJECTS DESK LEG COLLISIONS
+   ========================================================= */
+
+.projects-leg-left-collision {
+    left: 48px;
+    top: 190px;
+
+    width: 18px;
+    height: 58px;
+}
+
+
+.projects-leg-right-collision {
+    left: 326px;
+    top: 190px;
+
+    width: 18px;
+    height: 58px;
+}
+
+.collision-box {
+    position: absolute;
+
+    pointer-events: none;
+
+    visibility: hidden;
+}
+
+
+.projects-collision {
+    left: 42px;
+    top: 105px;
+
+    width: 305px;
+    height: 105px;
+}
+.projects-chair-collision {
+    left: 145px;
+    top: 170px;
+
+    width: 105px;
+    height: 105px;
+}
+/* =========================================================
+   EXPERIENCE
+   ========================================================= */
+
+#experience {
+    min-height: 240px;
+}
+
+
+/* =========================================================
+   SKILLS
+   ========================================================= */
+
+#skills h3 {
+    margin-top: 30px;
+
+    font-size: 0.9rem;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.1em;
+
+    color: var(--muted-text);
+}
+
+#skills ul {
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 10px;
+
+    padding: 0;
+
+    list-style: none;
+}
+
+#skills li {
+    padding: 8px 13px;
+
+    border: 1px solid var(--border);
+    border-radius: 100px;
+
+    background-color: var(--panel-light);
+
+    color: var(--muted-text);
+
+    font-size: 0.85rem;
+}
+
+
+/* =========================================================
+   INTERESTS
+   ========================================================= */
+
+#interests article {
+    padding: 20px 0;
+
+    border-bottom: 1px solid var(--border);
+}
+
+#interests article:last-child {
+    border-bottom: none;
+}
+
+#interests article h3 {
+    margin-bottom: 5px;
+}
+
+#interests article p {
+    margin-top: 0;
+
+    color: var(--muted-text);
+}
+
+
+/* =========================================================
+   RESUME
+   ========================================================= */
+
+#resume {
+    min-height: 220px;
+}
+
+
+/* =========================================================
+   CONTACT
+   ========================================================= */
+
+#contact ul {
+    list-style: none;
+
+    padding: 0;
+
+    margin-top: 25px;
+}
+
+#contact li {
+    padding: 15px 0;
+
+    border-bottom: 1px solid var(--border);
+}
+
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+
+footer {
+    width: min(1400px, 92%);
+
+    margin: 0 auto;
+
+    padding: 30px 0 50px;
+
+    display: flex;
+    justify-content: space-between;
+
+    gap: 20px;
+
+    color: var(--muted-text);
+
+    font-size: 0.8rem;
+}
+
+
+/* =========================================================
+   RESPONSIVE DESIGN
+   Tablets / smaller screens
+   ========================================================= */
+
+@media (max-width: 850px) {
+
+    header {
+        align-items: flex-start;
+
+        flex-direction: column;
+
+        gap: 10px;
+    }
+
+    header > p {
+        margin: 0;
+    }
+
+    main {
+        grid-template-columns: 1fr;
+    }
+
+    #game-area {
+        min-height: 500px;
+    }
+
+    aside {
+        position: static;
+    }
+
+    main > section:not(#game-area) {
+        grid-column: 1;
+    }
+
+    #projects {
+        grid-template-columns: 1fr;
+    }
+
+    #projects > h2,
+    #projects > p {
+        grid-column: 1;
+    }
+
+}
+
+
+/* =========================================================
+   RESPONSIVE DESIGN
+   Phones
+   ========================================================= */
+
+@media (max-width: 550px) {
+
+    header {
+        padding: 20px;
+    }
+
+    header div {
+        flex-wrap: wrap;
+    }
+
+    main {
+        width: 90%;
+
+        padding-top: 20px;
+    }
+
+    #game-area {
+        min-height: 420px;
+
+        padding: 20px;
+    }
+
+    #game-area > div {
+        min-height: 280px;
+    }
+
+    aside {
+        padding: 20px;
+    }
+
+    main > section:not(#game-area) {
+        padding: 25px;
+    }
+
+    footer {
+        flex-direction: column;
+
+        width: 90%;
+    }
+
+}
+/* =========================================================
+   PHASE 4 — HIDE ORIGINAL CONTENT SECTIONS
+
+   The sections still exist in the HTML so JavaScript can
+   read their content, but they no longer appear underneath
+   the game.
+   ========================================================= */
+
+main > section:not(#game-area) {
+    display: none;
+}
+/* =========================================================
+   PORTFOLIO CONTENT PANEL
+   ========================================================= */
+
+#portfolio-panel {
+    position: absolute;
+
+    inset: 0;
+
+    z-index: 3000;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 7% 19% 7% 8%;
+
+    background-color: rgba(0, 0, 0, 0.38);
+
+    backdrop-filter: blur(3px);
+
+    opacity: 0;
+    visibility: hidden;
+
+    pointer-events: none;
+
+    transition:
+        opacity 0.25s ease,
+        visibility 0.25s ease;
+}
+
+
+#portfolio-panel.open {
+    opacity: 1;
+    visibility: visible;
+
+    pointer-events: auto;
+}
+
+
+/* Main floating information window */
+
+.panel-window {
+    width: min(820px, 100%);
+
+    max-height: 680px;
+
+    overflow-y: auto;
+
+    padding: 0;
+
+    border:
+        1px solid rgba(255, 255, 255, 0.13);
+
+    background-color:
+        rgba(17, 17, 16, 0.95);
+
+    box-shadow:
+        0 35px 80px rgba(0, 0, 0, 0.50);
+
+    transform:
+        translateY(14px)
+        scale(0.985);
+
+    transition:
+        transform 0.25s ease;
+}
+
+
+#portfolio-panel.open .panel-window {
+    transform:
+        translateY(0)
+        scale(1);
+}
+
+
+/* =========================================================
+   PANEL TOP BAR
+   ========================================================= */
+
+.panel-topbar {
+    position: sticky;
+
+    top: 0;
+
+    z-index: 2;
+
+    min-height: 55px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 22px;
+
+    border-bottom:
+        1px solid rgba(255, 255, 255, 0.08);
+
+    background-color:
+        rgba(17, 17, 16, 0.97);
+}
+
+
+#panel-section-label {
+    color: var(--muted-text);
+
+    font-size: 0.68rem;
+
+    letter-spacing: 0.16em;
+}
+
+
+/* Close button */
+
+#close-panel {
+    width: 40px;
+    height: 40px;
+
+    border: none;
+
+    background: transparent;
+
+    color: var(--muted-text);
+
+    font-size: 1.7rem;
+
+    cursor: pointer;
+
+    transition:
+        color 0.2s ease,
+        transform 0.2s ease;
+}
+
+
+#close-panel:hover {
+    color: var(--text);
+
+    transform: rotate(5deg);
+}
+
+
+/* =========================================================
+   PANEL CONTENT
+   ========================================================= */
+
+#panel-content {
+    padding: 35px;
+}
+
+
+#panel-content h2 {
+    margin-top: 0;
+
+    font-size: clamp(
+        2rem,
+        4vw,
+        3.4rem
+    );
+
+    letter-spacing: -0.05em;
+}
+
+
+#panel-content h3 {
+    margin-top: 28px;
+}
+
+
+#panel-content p,
+#panel-content li {
+    color: var(--muted-text);
+}
+
+
+/* Project cards copied into the modal */
+
+#panel-content article {
+    margin-top: 18px;
+
+    padding: 20px;
+
+    border:
+        1px solid rgba(255, 255, 255, 0.09);
+
+    background-color:
+        rgba(255, 255, 255, 0.025);
+}
+/* =========================================================
+   INTERACTIVE ROOM OBJECT STATES
+   ========================================================= */
+
+.room-object[data-section] {
+    cursor: pointer;
+
+    transition:
+        filter 0.2s ease,
+        transform 0.2s ease;
+}
+
+
+.room-object[data-section]:hover {
+    filter:
+        brightness(1.18)
+        drop-shadow(
+            0 16px 20px rgba(0, 0, 0, 0.35)
+        );
+
+    transform: translateY(-3px);
+}
+
+
+.room-object[data-section]:focus-visible {
+    outline:
+        2px solid rgba(255, 255, 255, 0.65);
+
+    outline-offset: 8px;
+}
+
+
+/* Currently selected object */
+
+.room-object.active-object {
+    filter:
+        brightness(1.25)
+        drop-shadow(
+            0 0 18px rgba(255, 255, 255, 0.13)
+        );
+}
+
+
+/* Currently selected menu entry */
+
+#portfolio-menu a.active-menu {
+    color: var(--text);
+
+    transform: translateX(-4px);
+}
+
+
+#portfolio-menu a.active-menu .menu-number {
+    color: var(--text);
+}
+/* =========================================================
+   PLAYER PROXIMITY STATES
+
+   Used when the player walks close enough to interact.
+   ========================================================= */
+
+.room-object.nearby-object {
+    filter:
+        brightness(1.22)
+        drop-shadow(
+            0 0 14px rgba(255, 255, 255, 0.12)
+        );
+}
+
+
+#portfolio-menu a.nearby-menu {
+    color: var(--text);
+
+    transform: translateX(-4px);
+}
+
+
+#portfolio-menu a.nearby-menu .menu-number {
+    color: var(--text);
+}
+/* =========================================================
+   IMPORTANT DESTINATION GROUNDING
+   ========================================================= */
+
+.computer-desk::before,
+.resume-folder::before {
+    content: "";
+
+    position: absolute;
+
+    z-index: -1;
+
+    left: 50%;
+    bottom: -20px;
+
+    width: 75%;
+    height: 32px;
+
+    transform: translateX(-50%);
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            ellipse,
+            rgba(255, 255, 255, 0.045),
+            transparent 70%
+        );
+
+    pointer-events: none;
+}
+/* =========================================================
+   FINAL ART ASSETS
+   ========================================================= */
+
+
+/* ---------------------------------------------------------
+   SHARED IMAGE RULES
+   --------------------------------------------------------- */
+
+.asset-visual {
+    position: relative;
+
+    padding: 0;
+
+    display: block;
+
+    background: none;
+
+    border: none;
+
+    box-shadow: none;
+
+    overflow: visible;
+}
+
+
+.asset-image {
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: contain;
+
+    pointer-events: none;
+
+    user-select: none;
+}
+
+
+/* =========================================================
+   WINDOW
+   ========================================================= */
+
+.room-window {
+    top: 8%;
+    left: 19%;
+
+    width: 135px;
+    height: 165px;
+
+    padding: 0;
+
+    background: none;
+    border: none;
+    box-shadow: none;
+}
+
+
+.room-window-image {
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: contain;
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   DECORATIVE FLOOR LAMP
+   ========================================================= */
+
+.floor-lamp {
+    top: 50%;
+    left: 13%;
+
+    width: 72px;
+    height: 200px;
+}
+
+
+.floor-lamp-image {
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: contain;
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   DECORATIVE PLANT
+   ========================================================= */
+
+.room-plant {
+    left: 8%;
+    top: 72%;
+
+    width: 95px;
+    height: 125px;
+}
+
+
+.room-plant-image {
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: contain;
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   ABOUT — BOOKSHELF
+   ========================================================= */
+
+.bookshelf-visual {
+    width: 155px;
+    height: 205px;
+
+    padding: 0;
+
+    background: none;
+    border: none;
+    box-shadow: none;
+}
+
+
+/* =========================================================
+   EXPERIENCE — BULLETIN BOARD
+   ========================================================= */
+
+.bulletin-visual {
+    width: 185px;
+    height: 140px;
+
+    padding: 0;
+
+    background: none;
+    border: none;
+    box-shadow: none;
+}
+
+
+/* =========================================================
+   SKILLS — SHELF
+   ========================================================= */
+
+.skills-visual {
+    width: 205px;
+    height: 145px;
+
+    padding: 0;
+
+    background: none;
+    border: none;
+    border-bottom: none;
+    box-shadow: none;
+}
+
+
+/* =========================================================
+   PROJECTS — MAIN DESK
+   ========================================================= */
+
+.desk-visual {
+    position: relative;
+
+    width: 390px;
+    height: 290px;
+
+    padding: 0;
+
+    background: none;
+    border: none;
+    box-shadow: none;
+
+    transform: none;
+}
+
+
+.projects-desk-image {
+    width: 100%;
+    height: 100%;
+
+    object-fit: contain;
+}
+
+
+/* =========================================================
+   RESUME — DOCUMENT STATION
+   ========================================================= */
+
+.resume-visual {
+    position: relative;
+
+    width: 245px;
+    height: 180px;
+
+    padding: 0;
+
+    background: none;
+    border: none;
+    box-shadow: none;
+
+    transform: none;
+}
+
+
+.resume-collision {
+    left: 15px;
+    top: 95px;
+
+    width: 215px;
+    height: 72px;
+}
+
+
+/* =========================================================
+   INTERESTS
+   ========================================================= */
+
+.interests-visual {
+    position: relative;
+
+    width: 225px;
+    height: 165px;
+
+    padding: 0;
+
+    background: none;
+    border: none;
+    box-shadow: none;
+}
+
+
+/* =========================================================
+   CONTACT PHONE
+   ========================================================= */
+
+.phone-visual {
+    width: 58px;
+    height: 92px;
+
+    padding: 0;
+
+    background: none;
+    border: none;
+    box-shadow: none;
+
+    transform: none;
+}
+/* =========================================================
+   FINAL ROOM BACKGROUND
+   ========================================================= */
+
+#room {
+    background-image:
+        url("images/furniture/room-background.png");
+
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    background-color: #11100f;
+}
+
+
+/* Old CSS wall/floor are no longer needed visually */
+
+.back-wall,
+.floor {
+    display: none;
+}
+
+
+/* The old rug hides too much of the new wood floor */
+
+.room-rug {
+    display: none;
+}
+
+
+/* Very light vignette only */
+
+#room::after {
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    z-index: 2;
+
+    pointer-events: none;
+
+    background:
+        linear-gradient(
+            to left,
+            rgba(0, 0, 0, 0.18),
+            transparent 25%
+        ),
+
+        linear-gradient(
+            to bottom,
+            transparent 60%,
+            rgba(0, 0, 0, 0.10)
+        );
+}

@@ -6,25 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>My Interactive Portfolio</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-
-    <!-- ==================================================
-         HEADER
-         ================================================== -->
-    <header>
-        <h1>Your Name</h1>
-        <p>Interactive Portfolio</p>
-
-        <!-- These will eventually become links/icons -->
-        <div>
-            <a href="#">GitHub</a>
-            <a href="#">LinkedIn</a>
-            <a href="mailto:your-email@example.com">Email</a>
-        </div>
-    </header>
-
 
     <!-- ==================================================
          MAIN PAGE
@@ -35,124 +20,1091 @@
              GAME / ROOM AREA
              This will eventually become the interactive room.
              ================================================== -->
-        <section id="game-area">
-
-            <h2>Interactive Room</h2>
-
-            <p>
-                This area will eventually contain the interactive room
-                and player character.
-            </p>
-
-            <!--
-                Later, this area will contain:
-
-                - Player avatar
-                - Desk / laptop
-                - Bookshelf
-                - Bulletin board
-                - Football
-                - Viola
-                - Headphones
-                - Anime posters
-                - Resume folder
-                - Phone
-                - Other room decorations
-            -->
-
-            <div>
-                <p>[Interactive room coming soon]</p>
-            </div>
-
-        </section>
-
-
         <!-- ==================================================
-             PORTFOLIO SIDEBAR / NAVIGATION
-             This will eventually stay visible beside the game.
-             ================================================== -->
-        <aside>
+     INTERACTIVE PORTFOLIO GAME
+     ================================================== -->
+<section id="game-area">
 
+    <!-- GAME HUD: TOP -->
+    <header id="game-header">
+
+        <div class="identity">
+            <h1>Takashi Shaw</h1>
+            <p>PORTFOLIO / 2026</p>
+        </div>
+
+        <div class="social-links">
+
+    <a
+        href="https://github.com/YOUR-GITHUB-USERNAME"
+        target="_blank"
+        rel="noopener noreferrer"
+    >
+        GitHub
+    </a>
+
+    <a
+        href="https://www.linkedin.com/in/takashi-shaw-bb1281369"
+        target="_blank"
+        rel="noopener noreferrer"
+    >
+        LinkedIn
+    </a>
+
+    <a
+        href="mailto:tshaw2@andrew.cmu.edu"
+    >
+        Email
+    </a>
+
+</div>
+
+    </header>
+
+
+    <!-- ==================================================
+         ROOM
+         Eventually this becomes the actual game world.
+         ================================================== -->
+    <div id="room">
+
+    <!-- ================================================
+         ROOM ENVIRONMENT
+         ================================================ -->
+
+    <div class="back-wall"></div>
+    <div class="floor"></div>
+    <!-- ==================================================
+     DECORATIVE ROOM ELEMENTS
+
+     These objects do NOT open portfolio sections.
+     They only make the room feel lived-in.
+     ================================================== -->
+
+
+<!-- WINDOW -->
+
+<div class="room-window" aria-hidden="true">
+    <img
+        src="images/furniture/room-window.png"
+        alt=""
+        class="room-window-image"
+        draggable="false"
+    >
+</div>
+
+
+<!-- VAGUE POSTERS -->
+
+<div class="poster-group" aria-hidden="true">
+
+    <div class="poster poster-one">
+        <span>01</span>
+    </div>
+
+    <div class="poster poster-two">
+        <span>02</span>
+    </div>
+
+</div>
+
+
+<!-- CENTRAL RUG -->
+
+<div class="room-rug" aria-hidden="true"></div>
+
+
+<!-- FLOOR LAMP -->
+<div class="floor-lamp" aria-hidden="true">
+    <img
+        src="images/furniture/floor-lamp.png"
+        alt=""
+        class="floor-lamp-image"
+        draggable="false"
+    >
+</div>
+
+
+<!-- PLANT -->
+
+<div class="room-plant" aria-hidden="true">
+    <img
+        src="images/furniture/room-plant.png"
+        alt=""
+        class="room-plant-image"
+        draggable="false"
+    >
+</div>
+
+
+    <!-- ==================================================
+     ABOUT ME — BOOKSHELF
+     ================================================== -->
+
+<div
+    class="room-object bookshelf"
+    data-section="about"
+    data-interact-x="12"
+    data-interact-y="39"
+    role="button"
+    tabindex="0"
+    aria-label="Open About Me"
+>
+
+
+   <div class="bookshelf-visual asset-visual">
+    <img
+        src="images/furniture/about-bookshelf.png"
+        alt=""
+        class="asset-image"
+        draggable="false"
+    >
+</div>
+
+    <div class="object-label">
+        <strong>ABOUT ME</strong>
+        <span>Who I am</span>
+    </div>
+
+</div>
+
+
+<!-- ==================================================
+     EXPERIENCE — BULLETIN BOARD
+     ================================================== -->
+
+<div
+    class="room-object bulletin-board"
+    data-section="experience"
+    data-interact-x="39"
+    data-interact-y="38"
+    role="button"
+    tabindex="0"
+    aria-label="Open Experience"
+>
+
+    <div class="bulletin-visual asset-visual">
+    <img
+        src="images/furniture/experience-board.png"
+        alt=""
+        class="asset-image"
+        draggable="false"
+    >
+</div>
+
+</div>
+
+
+<!-- ==================================================
+     SKILLS — SHELF
+     ================================================== -->
+
+<div
+    class="room-object skills-shelf"
+    data-section="skills"
+    data-interact-x="66"
+    data-interact-y="39"
+    role="button"
+    tabindex="0"
+    aria-label="Open Skills"
+>
+
+    <div class="skills-visual asset-visual">
+    <img
+        src="images/furniture/skills-shelf.png"
+        alt=""
+        class="asset-image"
+        draggable="false"
+    >
+</div>
+
+    <div class="object-label">
+        <strong>SKILLS</strong>
+        <span>Tools & technologies</span>
+    </div>
+
+</div>
+
+
+<!-- ==================================================
+     PROJECTS — COMPUTER DESK
+     ================================================== -->
+<div
+    class="room-object computer-desk"
+    data-section="projects"
+    role="button"
+    tabindex="0"
+    aria-label="Open Projects"
+>
+
+    <div class="desk-visual">
+        <img
+            src="images/furniture/projects-desk.png"
+            alt=""
+            class="projects-desk-image"
+            draggable="false"
+        >
+    </div>
+
+    <!-- Invisible physical footprint used for collision -->
+    <div
+        class="collision-box projects-collision"
+        data-collision
+        aria-hidden="true"
+    ></div>
+    <div
+    class="collision-box projects-chair-collision"
+    data-collision
+    aria-hidden="true"
+></div>
+<!-- Left desk leg -->
+<div
+    class="collision-box projects-leg-left-collision"
+    data-collision
+    aria-hidden="true"
+></div>
+
+
+<!-- Right desk leg -->
+<div
+    class="collision-box projects-leg-right-collision"
+    data-collision
+    aria-hidden="true"
+></div>
+
+    <div class="object-label">
+        <strong>PROJECTS</strong>
+        <span>Things I've built</span>
+    </div>
+
+</div>
+
+<!-- ==================================================
+     RESUME — CAREER / DOCUMENT STATION
+     ================================================== -->
+
+<div
+    class="room-object resume-folder"
+    data-section="resume"
+    role="button"
+    tabindex="0"
+    aria-label="Open Resume"
+>
+
+    <div class="resume-visual asset-visual">
+    <img
+        src="images/furniture/resume-station.png"
+        alt=""
+        class="asset-image"
+        draggable="false"
+    >
+</div>
+
+<div
+    class="collision-box resume-collision"
+    data-collision
+    aria-hidden="true"
+></div>
+
+    <div class="object-label">
+        <strong>RESUME</strong>
+        <span>Professional background</span>
+    </div>
+
+</div>
+<!-- ==================================================
+     INTERESTS — PERSONAL CORNER
+     ================================================== -->
+
+<div
+    class="room-object interests-corner"
+    data-section="interests"
+    role="button"
+    tabindex="0"
+    aria-label="Open Interests"
+>
+
+   <div class="interests-visual asset-visual">
+    <img
+        src="images/furniture/interests-cluster.png"
+        alt=""
+        class="asset-image"
+        draggable="false"
+    >
+</div>
+
+    <div class="object-label">
+        <strong>INTERESTS</strong>
+        <span>Outside of work</span>
+    </div>
+
+</div>
+
+
+<!-- ==================================================
+     CONTACT — PHONE
+     ================================================== -->
+
+<div
+    class="room-object contact-phone"
+    data-section="contact"
+    role="button"
+    tabindex="0"
+    aria-label="Open Contact"
+>
+
+    <div class="phone-visual asset-visual">
+    <img
+        src="images/furniture/contact-phone.png"
+        alt=""
+        class="asset-image"
+        draggable="false"
+    >
+</div>
+
+    <div class="object-label">
+        <strong>CONTACT</strong>
+        <span>Get in touch</span>
+    </div>
+
+</div>
+
+
+
+<!-- ==================================================
+     PLAYER
+
+     Temporary visual player.
+     This will later become your custom avatar.
+     ================================================== -->
+
+<div
+    id="player"
+    class="facing-down"
+    tabindex="0"
+    aria-label="Player character"
+>
+
+    <div class="player-body">
+
+        <div class="player-head"></div>
+
+        <div class="player-torso"></div>
+
+        <div class="player-leg player-leg-left"></div>
+
+        <div class="player-leg player-leg-right"></div>
+
+    </div>
+
+</div>
+
+<!-- ==================================================
+     INTERACTION PROMPT
+
+     Appears when the player approaches an object.
+     ================================================== -->
+
+<div
+    id="interaction-prompt"
+    aria-live="polite"
+    aria-hidden="true"
+>
+    <span class="interaction-key">E</span>
+
+    <span id="interaction-text">
+        INTERACT
+    </span>
+</div>
+
+
+
+
+    <!-- ==================================================
+         PORTFOLIO HUD / GAME MENU
+         ================================================== -->
+    <aside id="portfolio-menu">
+
+        <div class="menu-heading">
             <h2>Portfolio</h2>
 
             <p>
-                Explore the room or select a section below.
+                Explore the room or select a section.
             </p>
+        </div>
 
-            <nav aria-label="Portfolio navigation">
-                <ul>
-                    <li>
-                        <a href="#about">
-                            About Me
-                        </a>
-                    </li>
+        <nav aria-label="Portfolio navigation">
 
-                    <li>
-                        <a href="#projects">
-                            Projects
-                        </a>
-                    </li>
+    <ul>
 
-                    <li>
-                        <a href="#experience">
-                            Experience
-                        </a>
-                    </li>
+        <li>
+            <a href="#projects" data-section="projects">
+                <span class="menu-number">01</span>
 
-                    <li>
-                        <a href="#skills">
-                            Skills
-                        </a>
-                    </li>
+                <span>
+                    <strong>Projects</strong>
+                    <small>Things I've built</small>
+                </span>
+            </a>
+        </li>
 
-                    <li>
-                        <a href="#interests">
-                            Interests
-                        </a>
-                    </li>
+        <li>
+            <a href="#resume" data-section="resume">
+                <span class="menu-number">02</span>
 
-                    <li>
-                        <a href="#resume">
-                            Resume
-                        </a>
-                    </li>
+                <span>
+                    <strong>Resume</strong>
+                    <small>My background</small>
+                </span>
+            </a>
+        </li>
 
-                    <li>
-                        <a href="#contact">
-                            Contact
-                        </a>
-                    </li>
-                </ul>
-            </nav>
+        <li>
+            <a href="#about" data-section="about">
+                <span class="menu-number">03</span>
 
-        </aside>
+                <span>
+                    <strong>About Me</strong>
+                    <small>Who I am</small>
+                </span>
+            </a>
+        </li>
+
+        <li>
+            <a href="#experience" data-section="experience">
+                <span class="menu-number">04</span>
+
+                <span>
+                    <strong>Experience</strong>
+                    <small>My journey</small>
+                </span>
+            </a>
+        </li>
+
+        <li>
+            <a href="#skills" data-section="skills">
+                <span class="menu-number">05</span>
+
+                <span>
+                    <strong>Skills</strong>
+                    <small>Tools I use</small>
+                </span>
+            </a>
+        </li>
+
+        <li>
+            <a href="#interests" data-section="interests">
+                <span class="menu-number">06</span>
+
+                <span>
+                    <strong>Interests</strong>
+                    <small>Outside of work</small>
+                </span>
+            </a>
+        </li>
+
+        <li>
+            <a href="#contact" data-section="contact">
+                <span class="menu-number">07</span>
+
+                <span>
+                    <strong>Contact</strong>
+                    <small>Get in touch</small>
+                </span>
+            </a>
+        </li>
+
+    </ul>
+
+</nav>
+
+    </aside>
+    <!-- ==================================================
+     PORTFOLIO CONTENT PANEL
+
+     JavaScript will place the selected section here.
+     ================================================== -->
+
+<div id="portfolio-panel" aria-hidden="true">
+
+    <div class="panel-window">
+
+        <div class="panel-topbar">
+
+            <span id="panel-section-label">
+                PORTFOLIO
+            </span>
+
+            <button
+                id="close-panel"
+                type="button"
+                aria-label="Close portfolio panel"
+            >
+                ×
+            </button>
+
+        </div>
+
+        <div id="panel-content">
+            <!-- Selected portfolio content appears here -->
+        </div>
+
+    </div>
+
+</div>
+
+
+    <!-- GAME CONTROLS -->
+    <div id="game-controls">
+
+        <span>
+            <strong>WASD</strong>
+            Move
+        </span>
+
+        <span>
+            <strong>E</strong>
+            Interact
+        </span>
+
+        <span>
+            <strong>Mouse</strong>
+            Select
+        </span>
+
+    </div>
+
+</section>
 
 
         <!-- ==================================================
              ABOUT ME
              ================================================== -->
-        <section id="about">
+       <!-- ==================================================
+     ABOUT ME
+     ================================================== -->
 
-            <h2>About Me</h2>
+<section id="about">
 
-            <!-- Replace this later with your actual photo -->
-            <div>
-                <p>[Profile photo will go here]</p>
-            </div>
+    <h2>About Me</h2>
 
-            <h3>Bio</h3>
+    <p>
+        I'm Takashi Shaw, a Business Administration student at
+        Carnegie Mellon University pursuing a minor in Artificial
+        Intelligence Studies. I'm interested in the intersection of
+        technology, entrepreneurship, finance, and competitive athletics.
+    </p>
+
+    <p>
+        I enjoy building products from the ground up, especially projects
+        that combine software, artificial intelligence, automation, and
+        real-world business problems. Outside of academics and development,
+        I compete as a collegiate football player and play the viola.
+    </p>
+
+    <div class="content-details">
+
+        <p>
+            <strong>University:</strong>
+            Carnegie Mellon University
+        </p>
+
+        <p>
+            <strong>Major:</strong>
+            Business Administration
+        </p>
+
+        <p>
+            <strong>Minor:</strong>
+            Artificial Intelligence Studies
+        </p>
+
+        <p>
+            <strong>GPA:</strong>
+            3.81 / 4.00
+        </p>
+
+        <p>
+            <strong>Based in:</strong>
+            Pittsburgh, PA / Dallas, TX
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- ==================================================
+     PROJECTS
+     ================================================== -->
+
+<section id="projects">
+
+    <h2>Projects</h2>
+
+    <p>
+        A selection of projects combining software development,
+        artificial intelligence, automation, and entrepreneurship.
+    </p>
+
+
+    <!-- PROJECT 01 -->
+
+    <article class="project-card">
+
+        <p class="project-number">
+            PROJECT 01
+        </p>
+
+        <h3>
+            Pipeline Zero
+        </h3>
+
+        <p>
+            A B2B sales automation startup I built to explore how
+            artificial intelligence and automation can improve outbound
+            sales workflows and customized client solutions.
+        </p>
+
+        <p>
+            <strong>Built with:</strong>
+            Python, Flask, Tailwind CSS, OpenAI APIs,
+            Zapier, and Twilio webhooks.
+        </p>
+
+    </article>
+
+
+    <!-- PROJECT 02 -->
+
+    <article class="project-card">
+
+        <p class="project-number">
+            PROJECT 02
+        </p>
+
+        <h3>
+            Automated Social Media Network
+        </h3>
+
+        <p>
+            Developed an automated content-production workflow for a
+            network of business and finance social media accounts.
+            The system connected AI-generated scripts, voice synthesis,
+            and reusable video templates to streamline content creation.
+        </p>
+
+        <p>
+            <strong>Built with:</strong>
+            Python, Gemini APIs, ElevenLabs, HeyGen, and VS Code.
+        </p>
+
+    </article>
+
+
+    <!-- PROJECT 03 -->
+
+    <article class="project-card">
+
+        <p class="project-number">
+            PROJECT 03
+        </p>
+
+        <h3>
+            Roblox BrainRot FPS
+        </h3>
+
+        <p>
+            A multiplayer first-person game built in Roblox.
+            I worked on gameplay systems including server-side hit
+            detection, first-person camera behavior, and automated
+            generation of playable environments.
+        </p>
+
+        <p>
+            <strong>Built with:</strong>
+            Luau, Roblox Studio, Rojo, Git, and VS Code.
+        </p>
+
+    </article>
+
+
+    <!-- PROJECT 04 -->
+
+    <article class="project-card">
+
+        <p class="project-number">
+            PROJECT 04
+        </p>
+
+        <h3>
+            Interactive Portfolio
+        </h3>
+
+        <p>
+            The website you're currently exploring. Instead of building
+            a traditional scrolling portfolio, I designed the site as
+            an interactive game environment where objects in the room
+            represent different parts of my background.
+        </p>
+
+        <p>
+            <strong>Built with:</strong>
+            HTML, CSS, JavaScript, GitHub, and AI-assisted development.
+        </p>
+
+    </article>
+
+</section>
+
+
+<!-- ==================================================
+     EXPERIENCE
+     ================================================== -->
+
+<section id="experience">
+
+    <h2>Experience</h2>
+
+    <div class="experience-item">
+
+        <h3>
+            Founder / Developer — Pipeline Zero
+        </h3>
+
+        <p>
+            2026
+        </p>
+
+        <p>
+            Built a B2B sales automation platform that combined
+            software development, AI APIs, workflow automation,
+            and sales strategy.
+        </p>
+
+    </div>
+
+
+    <div class="experience-item">
+
+        <h3>
+            NCAA Collegiate Athlete — Carnegie Mellon University
+        </h3>
+
+        <p>
+            Pittsburgh, Pennsylvania
+        </p>
+
+        <p>
+            Balance collegiate football training, film study,
+            competition, academics, and technical projects while
+            maintaining a 3.81 GPA.
+        </p>
+
+    </div>
+
+
+    <div class="experience-item">
+
+        <h3>
+            Financial Analyst Student Training (FAST) — Analyst
+        </h3>
+
+        <p>
+            2025 — Present
+        </p>
+
+        <p>
+            Study investment banking, private equity, hedge fund
+            fundamentals, financial technicals, database research,
+            and market analysis.
+        </p>
+
+    </div>
+
+
+    <div class="experience-item">
+
+        <h3>
+            Braum's Ice Cream & Dairy Store — Retail Operations Associate
+        </h3>
+
+        <p>
+            Allen, Texas · 2025
+        </p>
+
+        <p>
+            Managed customer-facing transactions, inventory,
+            operational responsibilities, and workflow support
+            in a high-volume retail environment.
+        </p>
+
+    </div>
+
+
+    <div class="experience-item">
+
+        <h3>
+            Top Speed Academy — Athletic Trainer Assistant
+        </h3>
+
+        <p>
+            Carrollton, Texas · 2022 — 2024
+        </p>
+
+        <p>
+            Assisted with strength and conditioning sessions,
+            athlete safety, equipment setup, and training-session
+            logistics.
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- ==================================================
+     SKILLS
+     ================================================== -->
+
+<section id="skills">
+
+    <h2>Skills</h2>
+
+    <div class="skills-grid">
+
+        <div>
+
+            <h3>Programming</h3>
 
             <p>
-                Add your bio here.
+                Python · Flask · Luau · HTML · CSS · JavaScript
             </p>
+
+        </div>
+
+
+        <div>
+
+            <h3>AI & Automation</h3>
 
             <p>
-                You can talk about who you are, what you study,
-                what interests you, and what you are currently
-                working toward.
+                OpenAI APIs · Gemini APIs · Zapier · Twilio ·
+                ElevenLabs · HeyGen
             </p>
 
-        </section>
+        </div>
+
+
+        <div>
+
+            <h3>Development Tools</h3>
+
+            <p>
+                VS Code · GitHub · Rojo · Roblox Studio
+            </p>
+
+        </div>
+
+
+        <div>
+
+            <h3>Business & Analytics</h3>
+
+            <p>
+                Microsoft Excel · Financial Analysis ·
+                Macroeconomic Analysis · B2B Sales ·
+                Digital Marketing · SEO Fundamentals
+            </p>
+
+        </div>
+
+
+        <div>
+
+            <h3>Languages</h3>
+
+            <p>
+                English — Native<br>
+                Japanese — Basic
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ==================================================
+     INTERESTS
+     ================================================== -->
+
+<section id="interests">
+
+    <h2>Interests</h2>
+
+    <p>
+        My interests outside of academics and development are a large
+        part of how I approach competition, creativity, and problem solving.
+    </p>
+
+
+    <div class="interest-item">
+
+        <h3>Football</h3>
+
+        <p>
+            Collegiate football player at Carnegie Mellon University.
+            I enjoy the competitive, strategic, and physical side of
+            the game as much as the training process itself.
+        </p>
+
+    </div>
+
+
+    <div class="interest-item">
+
+        <h3>Viola</h3>
+
+        <p>
+            Music gives me a completely different creative outlet from
+            programming and business. I play the viola and enjoy the
+            precision and discipline involved in performing.
+        </p>
+
+    </div>
+
+
+    <div class="interest-item">
+
+        <h3>Strength Training</h3>
+
+        <p>
+            I'm highly interested in strength, speed development,
+            athletic performance, and recovery.
+        </p>
+
+    </div>
+
+
+    <div class="interest-item">
+
+        <h3>Gaming & Game Development</h3>
+
+        <p>
+            I enjoy games both as a player and a developer, particularly
+            systems that reward strategy, experimentation, and creativity.
+        </p>
+
+    </div>
+
+
+    <div class="interest-item">
+
+        <h3>Writing</h3>
+
+        <p>
+            I enjoy argumentative and creative writing, especially writing
+            that communicates ideas clearly without feeling overly rigid
+            or formulaic.
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- ==================================================
+     RESUME
+     ================================================== -->
+
+<section id="resume">
+
+    <h2>Resume</h2>
+
+    <p>
+        I'm a Carnegie Mellon Business Administration student pursuing
+        Artificial Intelligence Studies, with experience spanning
+        entrepreneurship, software development, financial analysis,
+        athletics, and operations.
+    </p>
+
+    <p>
+        <strong>Education:</strong>
+        Carnegie Mellon University
+    </p>
+
+    <p>
+        <strong>GPA:</strong>
+        3.81 / 4.00
+    </p>
+
+    <p>
+        <strong>Focus:</strong>
+        Business, artificial intelligence, entrepreneurship,
+        finance, and software development.
+    </p>
+
+    <a
+        href="resume.pdf"
+        target="_blank"
+        rel="noopener noreferrer"
+    >
+        View Full Resume
+    </a>
+
+</section>
+
+
+<!-- ==================================================
+     CONTACT
+     ================================================== -->
+
+<section id="contact">
+
+    <h2>Contact</h2>
+
+    <p>
+        I'm always interested in connecting about technology,
+        entrepreneurship, finance, athletics, or new opportunities.
+    </p>
+
+    <div class="contact-links">
+
+        <a
+            href="mailto:tshaw2@andrew.cmu.edu"
+        >
+            Email
+        </a>
+
+        <a
+            href="https://www.linkedin.com/in/takashi-shaw-bb1281369"
+            target="_blank"
+            rel="noopener noreferrer"
+        >
+            LinkedIn
+        </a>
+
+        <a
+            href="https://github.com/YOUR-GITHUB-USERNAME"
+            target="_blank"
+            rel="noopener noreferrer"
+        >
+            GitHub
+        </a>
+
+        <a
+            href="resume.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+        >
+            Resume
+        </a>
+
+    </div>
+
+</section>
 
 
         <!-- ==================================================
@@ -411,6 +1363,8 @@
         </p>
 
     </footer>
+
+<script src="script.js"></script>
 
 </body>
 

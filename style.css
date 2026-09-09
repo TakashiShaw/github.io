@@ -2946,90 +2946,6 @@ main > section:not(#game-area) {
             rgba(0, 0, 0, 0.10)
         );
 }
-/* =========================================================
-   ABOUT ME — PROFILE PHOTO
-   ========================================================= */
-
-.about-profile {
-    display: flex;
-
-    align-items: flex-start;
-
-    gap: 28px;
-
-    margin:
-        20px 0
-        30px;
-}
-
-
-.about-photo {
-    width: 150px;
-    height: 180px;
-
-    flex-shrink: 0;
-
-    object-fit: cover;
-    object-position: center top;
-
-    border-radius: 8px;
-
-    border:
-        1px solid
-        rgba(255, 255, 255, 0.12);
-
-    box-shadow:
-        0 16px 35px
-        rgba(0, 0, 0, 0.35);
-}
-
-
-.about-profile-text {
-    max-width: 620px;
-}
-
-
-.about-profile-text p:first-child {
-    margin-top: 0;
-}
-
-
-.about-profile-text p {
-    line-height: 1.7;
-
-    color:
-        rgba(255, 255, 255, 0.78);
-}
-
-
-/* =========================================================
-   ABOUT DETAILS
-   ========================================================= */
-
-.content-details {
-    margin-top: 22px;
-
-    padding-top: 20px;
-
-    border-top:
-        1px solid
-        rgba(255, 255, 255, 0.08);
-}
-
-
-.content-details p {
-    margin:
-        8px 0;
-
-    color:
-        rgba(255, 255, 255, 0.72);
-}
-
-
-.content-details strong {
-    color:
-        rgba(255, 255, 255, 0.95);
-}
 
 
 /* =========================================================
@@ -3081,22 +2997,903 @@ main > section:not(#game-area) {
 }
 
 
+
+
 /* =========================================================
-   MOBILE ABOUT LAYOUT
+   FINAL PORTFOLIO PANEL STYLE
+   Physical paper / printed dossier aesthetic
+   ========================================================= */
+
+:root {
+    --paper-main: #eee5d5;
+    --paper-light: #f4ecdf;
+    --paper-dark: #ddd0ba;
+
+    --paper-ink: #27221d;
+    --paper-ink-soft: #51493f;
+    --paper-ink-muted: #807568;
+
+    --paper-red: #7c4036;
+
+    --paper-line: rgba(64, 52, 40, 0.18);
+    --paper-line-light: rgba(64, 52, 40, 0.10);
+}
+
+
+/* =========================================================
+   DARKEN / BLUR ROOM BEHIND PANEL
+   ========================================================= */
+
+#portfolio-panel {
+    background:
+        rgba(8, 6, 4, 0.68);
+
+    backdrop-filter:
+        blur(8px);
+
+    -webkit-backdrop-filter:
+        blur(8px);
+}
+
+
+/* =========================================================
+   MAIN PAPER SHEET
+   ========================================================= */
+
+.panel-window {
+    position: relative;
+
+    width:
+        min(760px, 84vw);
+
+    max-height:
+        78vh;
+
+    overflow: hidden;
+
+    border:
+        1px solid
+        rgba(96, 76, 54, 0.35);
+
+    border-radius:
+        4px;
+
+    color:
+        var(--paper-ink);
+
+    background-color:
+        var(--paper-main);
+
+    background-image:
+
+        /* subtle warm variation */
+        radial-gradient(
+            circle at 20% 10%,
+            rgba(255, 255, 255, 0.34),
+            transparent 32%
+        ),
+
+        radial-gradient(
+            circle at 80% 70%,
+            rgba(142, 105, 65, 0.06),
+            transparent 35%
+        ),
+
+        /* tiny paper fibers */
+        repeating-linear-gradient(
+            12deg,
+            rgba(80, 64, 46, 0.012) 0px,
+            rgba(80, 64, 46, 0.012) 1px,
+            transparent 1px,
+            transparent 4px
+        ),
+
+        linear-gradient(
+            145deg,
+            #f1e8d9,
+            #e9dfce
+        );
+
+    box-shadow:
+        0 32px 90px
+        rgba(0, 0, 0, 0.58),
+
+        0 3px 8px
+        rgba(0, 0, 0, 0.24);
+}
+
+
+/* Additional subtle paper grain */
+
+.panel-window::before {
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    z-index: 0;
+
+    pointer-events: none;
+
+    opacity: 0.35;
+
+    background-image:
+
+        radial-gradient(
+            rgba(50, 40, 30, 0.08) 0.5px,
+            transparent 0.7px
+        );
+
+    background-size:
+        5px 5px;
+}
+
+
+/* Keep real content above texture */
+
+.panel-window > * {
+    position: relative;
+
+    z-index: 1;
+}
+
+
+/* =========================================================
+   PAPER HEADER STRIP
+   ========================================================= */
+
+.panel-topbar {
+    min-height:
+        48px;
+
+    padding:
+        0 24px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        space-between;
+
+    background:
+        rgba(221, 208, 186, 0.58);
+
+    border-bottom:
+        1px solid
+        rgba(86, 65, 45, 0.20);
+}
+
+
+#panel-section-label {
+    color:
+        var(--paper-red);
+
+    font-size:
+        0.67rem;
+
+    font-weight:
+        700;
+
+    letter-spacing:
+        0.20em;
+
+    text-transform:
+        uppercase;
+}
+
+
+#close-panel {
+    border:
+        none;
+
+    background:
+        transparent;
+
+    color:
+        #5e554b;
+
+    opacity:
+        0.72;
+
+    font-size:
+        1.15rem;
+
+    cursor:
+        pointer;
+
+    transition:
+        opacity 0.15s ease,
+        transform 0.15s ease,
+        color 0.15s ease;
+}
+
+
+#close-panel:hover {
+    opacity:
+        1;
+
+    color:
+        var(--paper-red);
+
+    transform:
+        rotate(5deg);
+}
+
+
+/* =========================================================
+   MAIN CONTENT AREA
+   ========================================================= */
+
+#panel-content {
+    padding:
+        38px 46px 50px;
+
+    overflow-y:
+        auto;
+
+    color:
+        var(--paper-ink);
+
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+}
+
+
+/* =========================================================
+   MAIN PAGE HEADINGS
+   ========================================================= */
+
+#panel-content h2 {
+    margin:
+        0 0 30px;
+
+    color:
+        var(--paper-ink);
+
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+    font-size:
+        clamp(
+            2.8rem,
+            5vw,
+            4.4rem
+        );
+
+    line-height:
+        0.98;
+
+    font-weight:
+        400;
+
+    letter-spacing:
+        -0.045em;
+
+    text-transform:
+        none;
+}
+
+
+/* =========================================================
+   SMALLER HEADINGS
+   ========================================================= */
+
+#panel-content h3 {
+    margin:
+        0 0 10px;
+
+    color:
+        var(--paper-ink);
+
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+    font-size:
+        1.3rem;
+
+    line-height:
+        1.25;
+
+    font-weight:
+        700;
+}
+
+
+/* =========================================================
+   BODY TEXT
+   ========================================================= */
+
+#panel-content p {
+    color:
+        var(--paper-ink-soft);
+
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+    font-size:
+        0.95rem;
+
+    line-height:
+        1.7;
+}
+
+
+#panel-content strong {
+    color:
+        var(--paper-ink);
+
+    font-weight:
+        700;
+}
+
+
+/* =========================================================
+   GENERAL DIVIDER FEEL
+   ========================================================= */
+
+#panel-content hr {
+    border:
+        none;
+
+    border-top:
+        1px solid
+        var(--paper-line);
+
+    margin:
+        28px 0;
+}
+
+
+/* =========================================================
+   PROJECTS
+   ========================================================= */
+
+.project-card {
+    margin:
+        0;
+
+    padding:
+        28px 16px 30px;
+
+    background:
+        transparent;
+
+    border:
+        none;
+
+    border-top:
+        1px solid
+        var(--paper-line);
+
+    border-radius:
+        0;
+
+    box-shadow:
+        none;
+
+    transition:
+        background 0.15s ease;
+}
+
+
+.project-card:hover {
+    transform:
+        none;
+
+    background:
+        rgba(108, 75, 46, 0.035);
+
+    border-color:
+        var(--paper-line);
+}
+
+
+.project-number {
+    margin:
+        0 0 14px !important;
+
+    color:
+        var(--paper-red) !important;
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif !important;
+
+    font-size:
+        0.67rem !important;
+
+    font-weight:
+        700 !important;
+
+    letter-spacing:
+        0.17em !important;
+}
+
+
+.project-card h3 {
+    margin-bottom:
+        12px;
+
+    font-size:
+        1.45rem;
+}
+
+
+.project-card p {
+    max-width:
+        610px;
+}
+
+
+/* =========================================================
+   ABOUT ME
+   ========================================================= */
+
+.about-profile {
+    display:
+        grid;
+
+    grid-template-columns:
+        150px 1fr;
+
+    gap:
+        30px;
+
+    align-items:
+        start;
+
+    margin:
+        0 0 32px;
+}
+
+
+.about-photo {
+    width:
+        150px;
+
+    height:
+        185px;
+
+    object-fit:
+        cover;
+
+    border:
+        5px solid
+        #f5eddf;
+
+    border-radius:
+        1px;
+
+    box-shadow:
+        0 1px 3px
+        rgba(0, 0, 0, 0.20),
+
+        7px 7px 0
+        rgba(112, 86, 58, 0.10);
+}
+
+
+.about-profile-text p {
+    color:
+        var(--paper-ink-soft);
+}
+
+
+.content-details {
+    margin-top:
+        22px;
+
+    padding-top:
+        22px;
+
+    border-top:
+        1px solid
+        var(--paper-line);
+}
+
+
+.content-details p {
+    margin:
+        7px 0;
+
+    color:
+        var(--paper-ink-soft);
+}
+
+
+.content-details strong {
+    color:
+        var(--paper-ink);
+}
+
+
+/* =========================================================
+   EXPERIENCE
+   ========================================================= */
+
+.experience-item {
+    margin:
+        0;
+
+    padding:
+        24px 6px 27px;
+
+    border:
+        none;
+
+    border-top:
+        1px solid
+        var(--paper-line);
+
+    background:
+        transparent;
+}
+
+
+.experience-item:first-of-type {
+    margin-top:
+        20px;
+}
+
+
+.experience-item h3 {
+    font-size:
+        1.25rem;
+}
+
+
+.experience-item p:nth-of-type(1) {
+    color:
+        var(--paper-red);
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    font-size:
+        0.70rem;
+
+    font-weight:
+        700;
+
+    letter-spacing:
+        0.08em;
+}
+
+
+/* =========================================================
+   SKILLS
+   ========================================================= */
+
+.skills-grid {
+    display:
+        grid;
+
+    grid-template-columns:
+        repeat(
+            2,
+            minmax(0, 1fr)
+        );
+
+    gap:
+        0;
+
+    margin-top:
+        24px;
+
+    border-top:
+        1px solid
+        var(--paper-line);
+
+    border-left:
+        1px solid
+        var(--paper-line);
+}
+
+
+.skills-grid > div {
+    padding:
+        22px;
+
+    background:
+        rgba(255, 255, 255, 0.05);
+
+    border:
+        none;
+
+    border-right:
+        1px solid
+        var(--paper-line);
+
+    border-bottom:
+        1px solid
+        var(--paper-line);
+
+    border-radius:
+        0;
+}
+
+
+.skills-grid h3 {
+    margin-bottom:
+        8px;
+
+    color:
+        var(--paper-red);
+}
+
+
+/* =========================================================
+   INTERESTS
+   ========================================================= */
+
+.interest-item {
+    margin:
+        0;
+
+    padding:
+        23px 6px 25px;
+
+    border:
+        none;
+
+    border-top:
+        1px solid
+        var(--paper-line);
+
+    background:
+        transparent;
+}
+
+
+.interest-item h3 {
+    font-size:
+        1.3rem;
+}
+
+
+/* =========================================================
+   RESUME
+   ========================================================= */
+
+#panel-content a {
+    color:
+        var(--paper-red);
+
+    text-decoration:
+        none;
+}
+
+
+#panel-content a:hover {
+    color:
+        #512821;
+}
+
+
+#panel-content a[href$=".pdf"] {
+    display:
+        inline-block;
+
+    margin-top:
+        14px;
+
+    padding:
+        10px 15px;
+
+    color:
+        var(--paper-light);
+
+    background:
+        var(--paper-ink);
+
+    border:
+        none;
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    font-size:
+        0.76rem;
+
+    letter-spacing:
+        0.04em;
+
+    transition:
+        background 0.15s ease;
+}
+
+
+#panel-content a[href$=".pdf"]:hover {
+    color:
+        var(--paper-light);
+
+    background:
+        var(--paper-red);
+}
+
+
+/* =========================================================
+   CONTACT
+   ========================================================= */
+
+.contact-links {
+    display:
+        grid;
+
+    grid-template-columns:
+        repeat(
+            2,
+            1fr
+        );
+
+    gap:
+        0;
+
+    margin-top:
+        28px;
+
+    border-top:
+        1px solid
+        var(--paper-line);
+
+    border-left:
+        1px solid
+        var(--paper-line);
+}
+
+
+.contact-links a {
+    padding:
+        15px 17px;
+
+    color:
+        var(--paper-ink) !important;
+
+    background:
+        transparent;
+
+    border:
+        none !important;
+
+    border-right:
+        1px solid
+        var(--paper-line) !important;
+
+    border-bottom:
+        1px solid
+        var(--paper-line) !important;
+
+    border-radius:
+        0;
+
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+    transition:
+        background 0.15s ease,
+        color 0.15s ease;
+}
+
+
+.contact-links a:hover {
+    color:
+        var(--paper-light) !important;
+
+    background:
+        var(--paper-red);
+}
+
+
+/* =========================================================
+   SCROLLBAR — PAPER STYLE
+   ========================================================= */
+
+#panel-content::-webkit-scrollbar {
+    width:
+        7px;
+}
+
+
+#panel-content::-webkit-scrollbar-track {
+    background:
+        rgba(100, 78, 56, 0.05);
+}
+
+
+#panel-content::-webkit-scrollbar-thumb {
+    background:
+        rgba(91, 70, 51, 0.32);
+
+    border-radius:
+        10px;
+}
+
+
+/* =========================================================
+   MOBILE
    ========================================================= */
 
 @media (max-width: 650px) {
 
-    .about-profile {
-        flex-direction: column;
+    .panel-window {
+        width:
+            92vw;
 
-        gap: 18px;
+        max-height:
+            82vh;
+    }
+
+
+    #panel-content {
+        padding:
+            30px 25px 38px;
+    }
+
+
+    #panel-content h2 {
+        font-size:
+            2.8rem;
+    }
+
+
+    .about-profile {
+        grid-template-columns:
+            1fr;
     }
 
 
     .about-photo {
-        width: 130px;
-        height: 155px;
+        width:
+            135px;
+
+        height:
+            165px;
     }
 
+
+    .skills-grid {
+        grid-template-columns:
+            1fr;
+    }
+
+
+    .contact-links {
+        grid-template-columns:
+            1fr;
+    }
+
+}
+
+/* =========================================================
+   PAPER PANEL SCROLLING
+   ========================================================= */
+
+#panel-content {
+    max-height: calc(78vh - 48px);
+
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    overscroll-behavior: contain;
+
+    scroll-behavior: smooth;
 }

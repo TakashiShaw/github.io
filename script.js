@@ -113,6 +113,10 @@ function openSection(sectionId) {
     panelContent.innerHTML =
         sourceSection.innerHTML;
 
+    panelContent.scrollTop = 0;
+
+    pressedKeys.clear();
+
 
     panelSectionLabel.textContent =
         sectionNames[sectionId] || "PORTFOLIO";
@@ -168,6 +172,9 @@ function openSection(sectionId) {
 function closePanel() {
 
     portfolioPanel.classList.remove("open");
+
+
+    pressedKeys.clear();
 
 
     portfolioPanel.setAttribute(
@@ -373,16 +380,12 @@ function updatePlayerPosition() {
     );
 
 }
-
-
-
 // ==========================================================
 // KEYBOARD STATE
 // ==========================================================
 
 const pressedKeys =
     new Set();
-
 
 
 const movementKeys =
@@ -411,36 +414,79 @@ document.addEventListener(
             event.key.toLowerCase();
 
 
-        // ----------------------------------------------
-        // ESC closes portfolio panel
-        // ----------------------------------------------
+        const panelIsOpen =
+            portfolioPanel.classList.contains(
+                "open"
+            );
 
-        if (
-            event.key === "Escape" &&
-            portfolioPanel.classList.contains("open")
-        ) {
 
-            closePanel();
+        // ==================================================
+        // PORTFOLIO PANEL CONTROLS
+        //
+        // W = scroll up
+        // S = scroll down
+        // E = close panel
+        // Escape = close panel
+        // ==================================================
+
+        if (panelIsOpen) {
+
+            if (key === "w") {
+
+                event.preventDefault();
+
+
+                panelContent.scrollBy({
+                    top: -85,
+                    behavior: "smooth"
+                });
+
+
+                return;
+
+            }
+
+
+            if (key === "s") {
+
+                event.preventDefault();
+
+
+                panelContent.scrollBy({
+                    top: 85,
+                    behavior: "smooth"
+                });
+
+
+                return;
+
+            }
+
+
+            if (
+                key === "e" ||
+                key === "escape"
+            ) {
+
+                event.preventDefault();
+
+
+                closePanel();
+
+
+                return;
+
+            }
+
 
             return;
+
         }
 
 
-        // ----------------------------------------------
-        // If panel is open, game controls are disabled.
-        // ----------------------------------------------
-
-        if (
-            portfolioPanel.classList.contains("open")
-        ) {
-
-            return;
-        }
-
-
-        // ----------------------------------------------
-        // E = interact
-        // ----------------------------------------------
+        // ==================================================
+        // E = INTERACT WITH NEARBY OBJECT
+        // ==================================================
 
         if (
             key === "e" &&
@@ -456,13 +502,15 @@ document.addEventListener(
 
             openSection(sectionId);
 
+
             return;
+
         }
 
 
-        // ----------------------------------------------
-        // Movement keys
-        // ----------------------------------------------
+        // ==================================================
+        // PLAYER MOVEMENT
+        // ==================================================
 
         if (
             movementKeys.has(key)
@@ -470,13 +518,13 @@ document.addEventListener(
 
             event.preventDefault();
 
+
             pressedKeys.add(key);
 
         }
 
     }
 );
-
 
 
 // ==========================================================

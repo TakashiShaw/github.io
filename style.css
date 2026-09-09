@@ -3897,3 +3897,20 @@ main > section:not(#game-area) {
 
     scroll-behavior: smooth;
 }
+/* Fix Resume link inside Contact grid */
+#panel-content .contact-links a[href$=".pdf"] {
+    margin-top: 0;
+    padding: 15px 17px;
+
+    color: var(--paper-ink) !important;
+    background: transparent;
+
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: inherit;
+    letter-spacing: normal;
+}
+
+#panel-content .contact-links a[href$=".pdf"]:hover {
+    color: var(--paper-light) !important;
+    background: var(--paper-red);
+}

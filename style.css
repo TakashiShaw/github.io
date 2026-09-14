@@ -1466,33 +1466,6 @@ main {
 
 
 /* =========================================================
-   TEMPORARY PLAYER CHARACTER
-   ========================================================= */
-
-#player {
-    position: absolute;
-
-    left: 44%;
-    top: 68%;
-
-    width: 46px;
-    height: 70px;
-
-    z-index: 4;
-
-    transform:
-        translate(-50%, -85%)
-        scale(var(--player-scale, 1));
-
-    transform-origin: center bottom;
-
-    user-select: none;
-
-    outline: none;
-}
-
-
-/* =========================================================
    PLAYER BODY
    ========================================================= */
 
@@ -3913,4 +3886,1109 @@ main > section:not(#game-area) {
 #panel-content .contact-links a[href$=".pdf"]:hover {
     color: var(--paper-light) !important;
     background: var(--paper-red);
+}
+/* =========================================================
+   POST-SUBMISSION POLISH — PASS 1
+   Controls, interaction feedback, resume emphasis,
+   and page entrance animation
+   ========================================================= */
+
+
+/* =========================================================
+   1. GAME CONTROLS HUD
+   ========================================================= */
+
+#game-controls {
+    position: absolute;
+
+    top: 14px;
+    left: 18px;
+
+    z-index: 50;
+
+    display: flex;
+    align-items: center;
+
+    gap: 9px;
+
+    padding: 7px 11px;
+
+    background:
+        rgba(12, 10, 8, 0.72);
+
+    border:
+        1px solid rgba(255, 255, 255, 0.09);
+
+    border-radius: 100px;
+
+    box-shadow:
+        0 5px 18px rgba(0, 0, 0, 0.22);
+
+    backdrop-filter:
+        blur(7px);
+
+    -webkit-backdrop-filter:
+        blur(7px);
+
+    color:
+        rgba(255, 255, 255, 0.68);
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    font-size:
+        0.66rem;
+
+    letter-spacing:
+        0.02em;
+
+    pointer-events: none;
+}
+
+
+#game-controls span {
+    display: flex;
+    align-items: center;
+
+    gap: 5px;
+
+    white-space: nowrap;
+}
+
+
+#game-controls strong {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    min-width: 22px;
+    height: 20px;
+
+    padding:
+        0 6px;
+
+    background:
+        rgba(255, 255, 255, 0.09);
+
+    border:
+        1px solid rgba(255, 255, 255, 0.13);
+
+    border-radius:
+        5px;
+
+    color:
+        rgba(255, 255, 255, 0.92);
+
+    font-size:
+        0.61rem;
+
+    font-weight:
+        700;
+
+    letter-spacing:
+        0.05em;
+
+    box-shadow:
+        inset 0 -1px 0
+        rgba(0, 0, 0, 0.35);
+}
+
+
+/* =========================================================
+   2. SMOOTHER ROOM INTERACTION FEEDBACK
+   ========================================================= */
+
+.room-object {
+    transition:
+        filter 0.18s ease;
+}
+
+
+.room-object .object-label {
+    transition:
+        opacity 0.18s ease,
+        text-shadow 0.18s ease;
+}
+
+
+/* Replace the harsher old nearby appearance
+   with a warmer, more deliberate glow. */
+
+.room-object.nearby-object {
+    filter:
+        brightness(1.3)
+        drop-shadow(
+            0 0 18px
+            rgba(218, 184, 128, 0.18)
+        );
+}
+
+
+.room-object.nearby-object .object-label {
+    opacity: 1;
+
+    text-shadow:
+        0 0 10px
+        rgba(255, 232, 190, 0.2);
+}
+
+
+/* Matching sidebar item */
+
+#portfolio-menu a.nearby-menu {
+    color:
+        var(--text);
+
+    box-shadow:
+        inset 2px 0
+        rgba(224, 194, 145, 0.7);
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(255, 235, 200, 0.055),
+            transparent 75%
+        );
+}
+
+
+#portfolio-menu a.nearby-menu .menu-number {
+    color:
+        rgba(255, 235, 200, 0.92);
+}
+
+
+/* =========================================================
+   3. MAKE RESUME THE CLEAR #2 DESTINATION
+   ========================================================= */
+
+.resume-visual {
+    transform:
+        scale(1.09);
+
+    transform-origin:
+        bottom center;
+
+    transition:
+        filter 0.18s ease;
+}
+
+
+/* Give the paper a little more visual separation
+   from the dark furniture. */
+
+.resume-paper {
+    filter:
+        brightness(1.04);
+}
+
+
+/* Stronger effect only when Resume is interactable */
+
+.resume-folder.nearby-object .resume-paper {
+    filter:
+        brightness(1.14);
+
+    box-shadow:
+        0 3px 7px
+        rgba(0, 0, 0, 0.35),
+
+        0 0 20px
+        rgba(240, 215, 168, 0.16);
+}
+
+
+.resume-folder .object-label strong {
+    font-size:
+        0.82rem;
+
+    letter-spacing:
+        0.07em;
+}
+
+
+/* =========================================================
+   4. OPENING ANIMATION
+   ========================================================= */
+
+/*
+   No splash screen.
+   The portfolio still becomes usable immediately.
+*/
+
+#room {
+    animation:
+        room-intro
+        0.75s
+        ease-out
+        both;
+}
+
+
+#game-header {
+    animation:
+        hud-intro
+        0.55s
+        0.12s
+        ease-out
+        both;
+}
+
+
+#portfolio-menu {
+    animation:
+        hud-intro
+        0.55s
+        0.24s
+        ease-out
+        both;
+}
+
+
+#game-controls {
+    animation:
+        hud-intro
+        0.55s
+        0.34s
+        ease-out
+        both;
+}
+
+
+@keyframes room-intro {
+
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+
+}
+
+
+@keyframes hud-intro {
+
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+
+}
+
+
+/* =========================================================
+   ACCESSIBILITY — REDUCED MOTION
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    #room,
+    #game-header,
+    #portfolio-menu,
+    #game-controls {
+        animation: none !important;
+
+        opacity: 1 !important;
+    }
+
+}
+#game-controls {
+    top: auto;
+    bottom: 18px;
+    left: 18px;
+}
+/* =========================================================
+   POST-SUBMISSION POLISH — PASS 2
+   ENVIRONMENT ANIMATION — STRONGER VERSION
+   ========================================================= */
+
+
+/* =========================================================
+   WINDOW — visible cool light pulse
+   ========================================================= */
+
+.room-window {
+    overflow: visible;
+}
+
+.room-window::after {
+    content: "";
+
+    position: absolute;
+
+    left: -8%;
+    top: -6%;
+
+    width: 116%;
+    height: 112%;
+
+    pointer-events: none;
+
+    background:
+        radial-gradient(
+            ellipse at center,
+            rgba(120, 175, 225, 0.24),
+            rgba(90, 135, 185, 0.08) 48%,
+            transparent 72%
+        );
+
+    filter: blur(12px);
+
+    opacity: 0.35;
+
+    animation:
+        window-light-shift
+        4s
+        ease-in-out
+        infinite alternate;
+}
+
+.room-window-image {
+    animation:
+        window-image-shift
+        4s
+        ease-in-out
+        infinite alternate;
+}
+
+@keyframes window-light-shift {
+
+    from {
+        opacity: 0.25;
+        transform: scale(0.96);
+    }
+
+    to {
+        opacity: 0.75;
+        transform: scale(1.05);
+    }
+
+}
+
+@keyframes window-image-shift {
+
+    from {
+        filter:
+            brightness(0.96);
+    }
+
+    to {
+        filter:
+            brightness(1.12);
+    }
+
+}
+
+
+/* =========================================================
+   FLOOR LAMP — stronger warm glow
+   ========================================================= */
+
+.floor-lamp {
+    overflow: visible;
+}
+
+.floor-lamp::after {
+    content: "";
+
+    position: absolute;
+
+    left: -8px;
+    top: 0;
+
+    width: 95px;
+    height: 115px;
+
+    pointer-events: none;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            ellipse,
+            rgba(255, 194, 105, 0.48),
+            rgba(255, 154, 60, 0.16) 45%,
+            transparent 72%
+        );
+
+    filter: blur(16px);
+
+    opacity: 0.55;
+
+    animation:
+        lamp-glow
+        3.2s
+        ease-in-out
+        infinite alternate;
+}
+
+.floor-lamp-image {
+    animation:
+        lamp-image-glow
+        3.2s
+        ease-in-out
+        infinite alternate;
+}
+
+@keyframes lamp-glow {
+
+    from {
+        opacity: 0.42;
+        transform: scale(0.94);
+    }
+
+    to {
+        opacity: 0.9;
+        transform: scale(1.12);
+    }
+
+}
+
+@keyframes lamp-image-glow {
+
+    from {
+        filter:
+            brightness(1);
+    }
+
+    to {
+        filter:
+            brightness(1.18);
+    }
+
+}
+
+
+/* =========================================================
+   PLANT — more noticeable sway
+   ========================================================= */
+
+.room-plant-image {
+    transform-origin: 50% 95%;
+
+    animation:
+        plant-sway
+        4.2s
+        ease-in-out
+        infinite alternate;
+}
+
+@keyframes plant-sway {
+
+    from {
+        transform:
+            rotate(-1.4deg)
+            translateX(-1px);
+    }
+
+    to {
+        transform:
+            rotate(1.4deg)
+            translateX(1px);
+    }
+
+}
+
+
+/* =========================================================
+   PROJECTS MONITOR — stronger screen activity
+   ========================================================= */
+
+.desk-visual {
+    overflow: visible;
+}
+
+.desk-visual::after {
+    content: "";
+
+    position: absolute;
+
+    z-index: 3;
+
+    left: 31%;
+    top: 7%;
+
+    width: 38%;
+    height: 25%;
+
+    pointer-events: none;
+
+    border-radius: 6px;
+
+    background:
+        radial-gradient(
+            ellipse at center,
+            rgba(115, 175, 225, 0.34),
+            rgba(70, 120, 175, 0.11) 52%,
+            transparent 75%
+        );
+
+    filter: blur(8px);
+
+    opacity: 0.42;
+
+    animation:
+        monitor-ambient
+        3.6s
+        ease-in-out
+        infinite alternate;
+}
+
+@keyframes monitor-ambient {
+
+    from {
+        opacity: 0.32;
+        transform: scale(0.97);
+    }
+
+    to {
+        opacity: 0.85;
+        transform: scale(1.04);
+    }
+
+}
+
+
+/* Projects wakes up more when player is nearby */
+
+.computer-desk.nearby-object .desk-visual::after {
+    opacity: 1;
+
+    filter:
+        blur(10px);
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .room-window::after,
+    .room-window-image,
+    .floor-lamp::after,
+    .floor-lamp-image,
+    .room-plant-image,
+    .desk-visual::after {
+        animation: none !important;
+    }
+
+}
+/* =========================================================
+   POST-SUBMISSION POLISH — PASS 3
+   CUSTOM PLAYER CHARACTER
+   ========================================================= */
+
+
+
+/* =========================================================
+   SPRITE WRAPPER
+   ========================================================= */
+
+.player-sprite-wrap {
+    position: relative;
+
+    width: 100%;
+    height: 100%;
+
+    transform-origin:
+        center bottom;
+}
+
+
+/* =========================================================
+   SPRITES
+   ========================================================= */
+
+.player-sprite {
+    position: absolute;
+
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    display: none;
+
+    object-fit:
+        contain;
+
+    pointer-events:
+        none;
+
+    user-select:
+        none;
+
+    filter:
+        drop-shadow(
+            0 2px 2px
+            rgba(0, 0, 0, 0.28)
+        );
+}
+
+
+/* Facing camera / moving downward */
+
+#player.facing-down .player-front {
+    display: block;
+}
+
+
+/* Facing away / moving upward */
+
+#player.facing-up .player-back {
+    display: block;
+}
+
+
+/* Facing right */
+
+#player.facing-right .player-side {
+    display: block;
+}
+
+
+/* Facing left — reuse right sprite */
+
+#player.facing-left .player-side {
+    display: block;
+
+    transform:
+        scaleX(-1);
+}
+
+
+/* =========================================================
+   WALKING MOTION
+
+   We animate the wrapper instead of the individual sprite
+   so mirroring the left-facing sprite still works.
+   ========================================================= */
+
+#player.moving .player-sprite-wrap {
+    animation:
+        sprite-walk
+        0.24s
+        ease-in-out
+        infinite alternate;
+}
+
+
+@keyframes sprite-walk {
+
+    from {
+        transform:
+            translateY(0)
+            rotate(-0.6deg);
+    }
+
+    to {
+        transform:
+            translateY(-3px)
+            rotate(0.6deg);
+    }
+
+}
+
+
+/* =========================================================
+   IMPROVED FLOOR SHADOW
+   ========================================================= */
+
+#player::after {
+    content: "";
+
+    position: absolute;
+
+    z-index: -1;
+
+    left: 50%;
+    bottom: 1px;
+
+    width: 42px;
+    height: 12px;
+
+    transform:
+        translateX(-50%);
+
+    border-radius:
+        50%;
+
+    background:
+        radial-gradient(
+            ellipse,
+            rgba(0, 0, 0, 0.58) 0%,
+            rgba(0, 0, 0, 0.28) 46%,
+            rgba(0, 0, 0, 0.08) 66%,
+            transparent 76%
+        );
+
+    filter:
+        blur(2px);
+
+    opacity:
+        0.9;
+
+    pointer-events:
+        none;
+}
+
+
+/* Shadow subtly reacts while walking */
+
+#player.moving::after {
+    animation:
+        player-shadow-walk
+        0.24s
+        ease-in-out
+        infinite alternate;
+}
+
+
+@keyframes player-shadow-walk {
+
+    from {
+        transform:
+            translateX(-50%)
+            scaleX(1);
+
+        opacity:
+            0.9;
+    }
+
+    to {
+        transform:
+            translateX(-50%)
+            scaleX(0.88);
+
+        opacity:
+            0.68;
+    }
+
+}
+
+
+/* =========================================================
+   PLAYER FOCUS
+   ========================================================= */
+
+#player:focus-visible {
+    outline:
+        2px solid
+        rgba(255, 255, 255, 0.55);
+
+    outline-offset:
+        5px;
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    #player.moving .player-sprite-wrap,
+    #player.moving::after {
+        animation:
+            none !important;
+    }
+
+}
+
+
+/* Larger shadow for larger character */
+
+#player::after {
+    width: 54px;
+    height: 14px;
+
+    bottom: 0;
+}
+/* =========================================================
+   PROJECTS DESK — SOLID COLLISION FOOTPRINT
+   Prevent player from walking underneath the desk
+   ========================================================= */
+
+.projects-collision {
+    left: 42px;
+    top: 105px;
+
+    width: 305px;
+    height: 150px;
+}
+/* =========================================================
+   PLAYER FINAL BASE SIZE
+   Perspective will change this as he moves in depth.
+   ========================================================= */
+
+/* =========================================================
+   PROJECTS DESK — SOLID PHYSICAL FOOTPRINT
+   ========================================================= */
+
+.projects-collision {
+    left: 20px;
+    top: 100px;
+
+    width: 350px;
+    height: 170px;
+}
+
+
+/* Chair gets its own larger footprint */
+
+.projects-chair-collision {
+    left: 135px;
+    top: 165px;
+
+    width: 120px;
+    height: 120px;
+}
+/* =========================================================
+   DECORATIVE PLANT COLLISION
+   ========================================================= */
+
+.plant-world-collision {
+    position: absolute;
+
+    left: 15px;
+    bottom: 5px;
+
+    width: 65px;
+    height: 58px;
+
+    visibility: hidden;
+    pointer-events: none;
+}
+/* =========================================================
+   REALISTIC 3-FRAME PLAYER WALK CYCLE
+   ========================================================= */
+
+
+/* Stop the old bounce animation */
+#player.moving .player-sprite-wrap {
+    animation: none !important;
+    transform: none !important;
+}
+
+
+/* Base sprite setup */
+#player .player-sprite {
+    position: absolute;
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: contain;
+    display: none;
+
+    pointer-events: none;
+    user-select: none;
+}
+
+
+/* =========================================================
+   IDLE DIRECTIONS
+   ========================================================= */
+
+#player:not(.moving).facing-down .sprite-front-idle {
+    display: block;
+}
+
+#player:not(.moving).facing-up .sprite-back-idle {
+    display: block;
+}
+
+#player:not(.moving).facing-right .sprite-right-idle {
+    display: block;
+}
+
+#player:not(.moving).facing-left .sprite-right-idle {
+    display: block;
+    transform: scaleX(-1);
+}
+
+
+/* =========================================================
+   WALKING VISIBILITY
+   ========================================================= */
+
+/* FRONT */
+#player.moving.facing-down .sprite-front-walk-1,
+#player.moving.facing-down .sprite-front-walk-2,
+#player.moving.facing-down .sprite-front-walk-3 {
+    display: block;
+}
+
+/* BACK */
+#player.moving.facing-up .sprite-back-walk-1,
+#player.moving.facing-up .sprite-back-walk-2,
+#player.moving.facing-up .sprite-back-walk-3 {
+    display: block;
+}
+
+/* RIGHT */
+#player.moving.facing-right .sprite-right-walk-1,
+#player.moving.facing-right .sprite-right-walk-2,
+#player.moving.facing-right .sprite-right-walk-3 {
+    display: block;
+}
+
+/* LEFT */
+#player.moving.facing-left .sprite-right-walk-1,
+#player.moving.facing-left .sprite-right-walk-2,
+#player.moving.facing-left .sprite-right-walk-3 {
+    display: block;
+    transform: scaleX(-1);
+}
+
+
+/* =========================================================
+   3-FRAME ANIMATION
+   ========================================================= */
+
+#player.moving .walk-frame-1 {
+    animation: walk-frame-1 0.42s steps(1, end) infinite;
+}
+
+#player.moving .walk-frame-2 {
+    animation: walk-frame-2 0.42s steps(1, end) infinite;
+}
+
+#player.moving .walk-frame-3 {
+    animation: walk-frame-3 0.42s steps(1, end) infinite;
+}
+
+
+@keyframes walk-frame-1 {
+    0%, 33.333% {
+        opacity: 1;
+    }
+    33.334%, 100% {
+        opacity: 0;
+    }
+}
+
+@keyframes walk-frame-2 {
+    0%, 33.333% {
+        opacity: 0;
+    }
+    33.334%, 66.666% {
+        opacity: 1;
+    }
+    66.667%, 100% {
+        opacity: 0;
+    }
+}
+
+@keyframes walk-frame-3 {
+    0%, 66.666% {
+        opacity: 0;
+    }
+    66.667%, 100% {
+        opacity: 1;
+    }
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+    #player.moving .walk-frame-1,
+    #player.moving .walk-frame-2,
+    #player.moving .walk-frame-3 {
+        animation: none !important;
+    }
+}
+/* =========================================================
+   SINGLE PLAYER SPRITE
+   ========================================================= */
+
+.player-sprite-wrap {
+    position: relative;
+
+    width: 100%;
+    height: 100%;
+
+    transform-origin: center bottom;
+}
+
+
+/* Kill the old bouncing animation */
+#player.moving .player-sprite-wrap {
+    animation: none !important;
+    transform: none !important;
+}
+
+
+/* The one image JS will swap */
+#player-sprite {
+    position: absolute;
+
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    display: block;
+
+    object-fit: contain;
+
+    transform-origin: center bottom;
+
+    pointer-events: none;
+    user-select: none;
+}
+
+/* =========================================================
+   FINAL PLAYER SETTINGS
+   This overrides all older #player rules.
+   ========================================================= */
+
+#player {
+    position: absolute;
+
+    /* Starting position.
+       JavaScript updates these while playing. */
+    left: 44%;
+    top: 68%;
+
+    /* Final character size */
+    width: 118px;
+    height: 177px;
+
+    z-index: 4;
+
+    transform:
+        translate(-50%, -100%)
+        scale(var(--player-scale, 1));
+
+    transform-origin: center bottom;
+
+    background: none;
+    border: none;
+
+    user-select: none;
+    outline: none;
+}
+
+
+/* Final player shadow */
+
+#player::after {
+    width: 64px;
+    height: 16px;
+    bottom: 0;
 }

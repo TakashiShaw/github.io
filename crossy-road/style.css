@@ -1,0 +1,49 @@
+/* ----------------------------------------
+   PAGE LAYOUT
+---------------------------------------- */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: #1a1a2e;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  font-family: sans-serif;
+}
+
+/* ----------------------------------------
+   GAME CONTAINER
+   Holds the canvas and constrains its size.
+   max-width/max-height keep it from overflowing
+   the viewport while the aspect-ratio property
+   locks 900:700 as it scales down.
+---------------------------------------- */
+
+#game-container {
+  width: 90vw;
+  max-width: 900px;
+  aspect-ratio: 900 / 700;
+  max-height: 90vh;
+  /* Recalculate width from the height constraint when the
+     viewport is shorter than it is wide. */
+  width: min(90vw, 90vh * (900 / 700));
+}
+
+/* ----------------------------------------
+   CANVAS
+   Fills the container exactly; the browser
+   scales the 900×700 logical pixels to fit.
+---------------------------------------- */
+
+#game-canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 2px solid #333;
+}

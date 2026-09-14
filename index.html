@@ -147,12 +147,19 @@
 <!-- PLANT -->
 
 <div class="room-plant" aria-hidden="true">
+
     <img
         src="images/furniture/room-plant.png"
         alt=""
         class="room-plant-image"
         draggable="false"
     >
+
+    <div
+        class="plant-world-collision"
+        data-world-collision
+    ></div>
+
 </div>
 
 
@@ -392,9 +399,7 @@
 
 <!-- ==================================================
      PLAYER
-
-     Temporary visual player.
-     This will later become your custom avatar.
+     Custom 2.5D character
      ================================================== -->
 
 <div
@@ -402,19 +407,18 @@
     class="facing-down"
     tabindex="0"
     aria-label="Player character"
->
+> 
 
-    <div class="player-body">
+    <div class="player-sprite-wrap">
 
-        <div class="player-head"></div>
+    <img
+        id="player-sprite"
+        src="images/player/player-front.png"
+        alt=""
+        draggable="false"
+    >
 
-        <div class="player-torso"></div>
-
-        <div class="player-leg player-leg-left"></div>
-
-        <div class="player-leg player-leg-right"></div>
-
-    </div>
+</div>
 
 </div>
 
@@ -1146,246 +1150,7 @@
 </section>
 
 
-        <!-- ==================================================
-             PROJECTS
-             ================================================== -->
-        <section id="projects">
-
-            <h2>Projects</h2>
-
-            <p>
-                A collection of projects I have worked on.
-            </p>
-
-
-            <!-- PROJECT 1 -->
-            <article>
-
-                <h3>Project 01: Interactive Portfolio</h3>
-
-                <p>
-                    My personal interactive portfolio website.
-                </p>
-
-                <p>
-                    This project is being created using HTML, CSS,
-                    JavaScript, GitHub, and AI-assisted development.
-                </p>
-
-                <p>
-                    <strong>Technologies:</strong>
-                    HTML, CSS, JavaScript
-                </p>
-
-                <a href="#">
-                    View Project
-                </a>
-
-            </article>
-
-
-            <!-- PROJECT 2 -->
-            <article>
-
-                <h3>Project 02</h3>
-
-                <p>
-                    Coming soon.
-                </p>
-
-            </article>
-
-
-            <!-- PROJECT 3 -->
-            <article>
-
-                <h3>Project 03</h3>
-
-                <p>
-                    Coming soon.
-                </p>
-
-            </article>
-
-
-            <!-- PROJECT 4 -->
-            <article>
-
-                <h3>Project 04</h3>
-
-                <p>
-                    Coming soon.
-                </p>
-
-            </article>
-
-        </section>
-
-
-        <!-- ==================================================
-             EXPERIENCE
-             ================================================== -->
-        <section id="experience">
-
-            <h2>Experience</h2>
-
-            <p>
-                Experience information will go here.
-            </p>
-
-            <!--
-                Later you could add entries like:
-
-                <article>
-                    <h3>Position or Organization</h3>
-                    <p>Date</p>
-                    <p>Description</p>
-                </article>
-            -->
-
-        </section>
-
-
-        <!-- ==================================================
-             SKILLS
-             ================================================== -->
-        <section id="skills">
-
-            <h2>Skills</h2>
-
-            <h3>Programming Languages</h3>
-
-            <ul>
-                <li>Add language</li>
-                <li>Add language</li>
-                <li>Add language</li>
-            </ul>
-
-
-            <h3>Tools & Technologies</h3>
-
-            <ul>
-                <li>Add tool</li>
-                <li>Add tool</li>
-                <li>Add tool</li>
-            </ul>
-
-
-            <h3>Other Skills</h3>
-
-            <ul>
-                <li>Add skill</li>
-                <li>Add skill</li>
-                <li>Add skill</li>
-            </ul>
-
-        </section>
-
-
-        <!-- ==================================================
-             INTERESTS
-             ================================================== -->
-        <section id="interests">
-
-            <h2>Interests</h2>
-
-            <article>
-                <h3>Football</h3>
-                <p>
-                    Add information about your interest in football here.
-                </p>
-            </article>
-
-
-            <article>
-                <h3>Viola</h3>
-                <p>
-                    Add information about your experience or interest
-                    in playing viola here.
-                </p>
-            </article>
-
-
-            <article>
-                <h3>Music</h3>
-                <p>
-                    Add information about music or your headphones/music
-                    interests here.
-                </p>
-            </article>
-
-
-            <article>
-                <h3>Anime & Media</h3>
-                <p>
-                    Add anything you would like to share here.
-                </p>
-            </article>
-
-        </section>
-
-
-        <!-- ==================================================
-             RESUME
-             ================================================== -->
-        <section id="resume">
-
-            <h2>Resume</h2>
-
-            <p>
-                My resume will be available here.
-            </p>
-
-            <!--
-                Eventually this could become:
-
-                <a href="assets/resume.pdf" target="_blank">
-                    View Resume
-                </a>
-            -->
-
-        </section>
-
-
-        <!-- ==================================================
-             CONTACT
-             ================================================== -->
-        <section id="contact">
-
-            <h2>Contact</h2>
-
-            <p>
-                Feel free to reach out to me.
-            </p>
-
-            <ul>
-
-                <li>
-                    Email:
-                    <a href="tshaw2@andrew.cmu.edu">
-                        tshaw2@andrew.cmu.edu
-                    </a>
-                </li>
-
-                <li>
-                    GitHub:
-                    <a href="#">
-                        GitHub Profile
-                    </a>
-                </li>
-
-                <li>
-                    LinkedIn:
-                    <a href="#">
-                        LinkedIn Profile
-                    </a>
-                </li>
-
-            </ul>
-
-        </section>
-
-    </main>
+      
 
 
     <!-- ==================================================

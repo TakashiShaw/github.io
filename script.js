@@ -53,6 +53,8 @@ const room =
 
 const player =
     document.querySelector("#player");
+    const playerSprite =
+    document.querySelector("#player-sprite");
 
 
 const interactionPrompt =
@@ -318,11 +320,40 @@ portfolioPanel.addEventListener(
 // browser size changes.
 // ==========================================================
 
-let playerX = 44;
+let playerX = 61;
 
-let playerY = 68;
+let playerY = 64;
 
+// ==========================================================
+// PLAYER PERSPECTIVE SCALE
+//
+// Uses the same Y-range as the actual walkable floor.
+// 41 = back wall
+// 94 = front of room
+// ==========================================================
 
+function getPlayerScale(y) {
+
+    const floorTop = 44;
+    const floorBottom = 94;
+
+    const progress =
+        (y - floorTop) /
+        (floorBottom - floorTop);
+
+    const clampedProgress =
+        Math.max(
+            0,
+            Math.min(1, progress)
+        );
+
+    // Back of room: 0.75
+    // Front of room: 1.40
+    return (
+        0.75 +
+        clampedProgress * 0.65
+    );
+}
 
 function updatePlayerPosition() {
 
@@ -336,48 +367,17 @@ function updatePlayerPosition() {
 
 
 
-    // ==================================================
-    // FAKE ROOM PERSPECTIVE
-    //
-    // Smaller near the back wall.
-    // Larger near the foreground.
-    // ==================================================
+   // ==================================================
+// ROOM PERSPECTIVE
+// ==================================================
 
-    const minimumY = 35;
+const scale =
+    getPlayerScale(playerY);
 
-    const maximumY = 94;
-
-
-    const progress =
-        (
-            playerY -
-            minimumY
-        ) /
-        (
-            maximumY -
-            minimumY
-        );
-
-
-    const clampedProgress =
-        Math.max(
-            0,
-            Math.min(
-                1,
-                progress
-            )
-        );
-
-
-    const scale =
-        0.82 +
-        clampedProgress * 0.24;
-
-
-    player.style.setProperty(
-        "--player-scale",
-        scale
-    );
+player.style.setProperty(
+    "--player-scale",
+    scale
+);
 
 }
 // ==========================================================
@@ -557,7 +557,7 @@ document.addEventListener(
 
 function getFloorBounds(y) {
 
-    const floorTop = 41;
+    const floorTop = 44;
 
     const floorBottom = 94;
 
@@ -628,113 +628,155 @@ function collidesWithFurniture(
         room.getBoundingClientRect();
 
 
+    // Convert the candidate player position
+    // from room percentages into screen pixels.
+
     const playerPixelX =
         roomRect.left +
-        (
-            candidateX / 100
-        ) *
+        (candidateX / 100) *
         roomRect.width;
-
 
     const playerPixelY =
         roomRect.top +
-        (
-            candidateY / 100
-        ) *
+        (candidateY / 100) *
         roomRect.height;
 
 
-    const playerRadius = 18;
+    // ======================================================
+    // PLAYER FEET HITBOX
+    //
+    // Collision should happen around the feet,
+    // not around the character's entire body.
+    // ======================================================
 
+    const playerHalfWidth = 22;
+    const playerHalfHeight = 8;
 
-    for (
-        const object of roomObjects
-    ) {
+// ======================================================
+// DECORATIVE WORLD COLLISIONS
+// ======================================================
 
-       // Look for custom collision boxes first.
-
-const customCollisionElements =
-    object.querySelectorAll(
-        "[data-collision]"
+const worldCollisionElements =
+    room.querySelectorAll(
+        "[data-world-collision]"
     );
-
-
-// If there are custom boxes, use all of them.
-//
-// Otherwise, fall back to the object's visual,
-// which keeps the old furniture working.
-
-let collisionElements;
-
-
-if (
-    customCollisionElements.length > 0
-) {
-
-    collisionElements =
-        customCollisionElements;
-
-}
-
-else {
-
-    collisionElements = [
-        object.firstElementChild
-    ];
-
-}
-
 
 for (
     const collisionElement
-    of collisionElements
+    of worldCollisionElements
 ) {
-
-    if (!collisionElement) {
-        continue;
-    }
-
 
     const objectRect =
         collisionElement.getBoundingClientRect();
 
-
-    const collisionPadding = 4;
-
+    const collisionPadding = 3;
 
     const collision =
-        playerPixelX + playerRadius >
+        playerPixelX + playerHalfWidth >
             objectRect.left -
             collisionPadding &&
 
-        playerPixelX - playerRadius <
+        playerPixelX - playerHalfWidth <
             objectRect.right +
             collisionPadding &&
 
-        playerPixelY + playerRadius >
+        playerPixelY + playerHalfHeight >
             objectRect.top -
             collisionPadding &&
 
-        playerPixelY - playerRadius <
+        playerPixelY - playerHalfHeight <
             objectRect.bottom +
             collisionPadding;
 
-
     if (collision) {
-
         return true;
-
     }
-
 }
+    // ======================================================
+    // CHECK PORTFOLIO OBJECTS
+    // ======================================================
+
+    for (const object of roomObjects) {
+
+        const customCollisionElements =
+            object.querySelectorAll(
+                "[data-collision]"
+            );
+
+
+        let collisionElements;
+
+
+        // Use custom collision boxes when they exist.
+
+        if (
+            customCollisionElements.length > 0
+        ) {
+
+            collisionElements =
+                customCollisionElements;
+
+        }
+
+        // Otherwise use the object's main visual.
+
+        else {
+
+            const visual =
+                object.firstElementChild;
+
+            if (!visual) {
+                continue;
+            }
+
+            collisionElements = [visual];
+
+        }
+
+
+        // Check each collision rectangle.
+
+        for (
+            const collisionElement
+            of collisionElements
+        ) {
+
+            const objectRect =
+                collisionElement
+                    .getBoundingClientRect();
+
+            const collisionPadding = 4;
+
+
+            const collision =
+                playerPixelX + playerHalfWidth >
+                    objectRect.left -
+                    collisionPadding &&
+
+                playerPixelX - playerHalfWidth <
+                    objectRect.right +
+                    collisionPadding &&
+
+                playerPixelY + playerHalfHeight >
+                    objectRect.top -
+                    collisionPadding &&
+
+                playerPixelY - playerHalfHeight <
+                    objectRect.bottom +
+                    collisionPadding;
+
+
+            if (collision) {
+                return true;
+            }
+
+        }
 
     }
 
 
     return false;
-
 }
-
 
 
 // ==========================================================
@@ -742,6 +784,168 @@ for (
 // ==========================================================
 
 const PLAYER_SPEED = 220;
+// ==========================================================
+// PLAYER SPRITE ANIMATION
+// ==========================================================
+
+const PLAYER_FRAME_TIME = 120;
+
+const PLAYER_SPRITES = {
+
+    down: {
+        idle: "images/player/player-front.png",
+
+        walk: [
+            "images/player/player-front-walk-1.png",
+            "images/player/player-front-walk-2.png",
+            "images/player/player-front-walk-3.png",
+            "images/player/player-front-walk-2.png"
+        ]
+    },
+
+    up: {
+        idle: "images/player/player-back.png",
+
+        walk: [
+            "images/player/player-back-walk-1.png",
+            "images/player/player-back-walk-2.png",
+            "images/player/player-back-walk-3.png",
+            "images/player/player-back-walk-2.png"
+        ]
+    },
+
+    right: {
+        idle: "images/player/player-right.png",
+
+        walk: [
+            "images/player/player-right-walk-1.png",
+            "images/player/player-right-walk-2.png",
+            "images/player/player-right-walk-3.png",
+            "images/player/player-right-walk-2.png"
+        ]
+    },
+
+    left: {
+        idle: "images/player/player-right.png",
+
+        walk: [
+            "images/player/player-right-walk-1.png",
+            "images/player/player-right-walk-2.png",
+            "images/player/player-right-walk-3.png",
+            "images/player/player-right-walk-2.png"
+        ]
+    }
+
+};
+
+
+let playerAnimationTimer = 0;
+let playerAnimationFrame = 0;
+let lastAnimationDirection = "down";
+
+
+function getPlayerDirection() {
+
+    if (
+        player.classList.contains("facing-up")
+    ) {
+        return "up";
+    }
+
+    if (
+        player.classList.contains("facing-left")
+    ) {
+        return "left";
+    }
+
+    if (
+        player.classList.contains("facing-right")
+    ) {
+        return "right";
+    }
+
+    return "down";
+}
+
+
+function updatePlayerSpriteAnimation(deltaTime) {
+
+    const direction =
+        getPlayerDirection();
+
+    const isMoving =
+        player.classList.contains("moving");
+
+    const spriteSet =
+        PLAYER_SPRITES[direction];
+
+
+    // Reset animation when direction changes
+    if (
+        direction !== lastAnimationDirection
+    ) {
+
+        playerAnimationFrame = 0;
+        playerAnimationTimer = 0;
+
+        lastAnimationDirection =
+            direction;
+    }
+
+
+    // Standing still
+    if (!isMoving) {
+
+        playerAnimationFrame = 0;
+        playerAnimationTimer = 0;
+
+        playerSprite.src =
+            spriteSet.idle;
+
+    }
+
+    // Walking
+    else {
+
+        playerAnimationTimer +=
+            deltaTime;
+
+        if (
+            playerAnimationTimer >=
+            PLAYER_FRAME_TIME
+        ) {
+
+            playerAnimationTimer -=
+                PLAYER_FRAME_TIME;
+
+            playerAnimationFrame =
+                (
+                    playerAnimationFrame + 1
+                ) %
+                spriteSet.walk.length;
+        }
+
+        playerSprite.src =
+            spriteSet.walk[
+                playerAnimationFrame
+            ];
+    }
+
+
+    // Mirror RIGHT sprites when walking left
+    if (direction === "left") {
+
+        playerSprite.style.transform =
+            "scaleX(-1)";
+
+    }
+
+    else {
+
+        playerSprite.style.transform =
+            "scaleX(1)";
+    }
+}
 
 
 
@@ -1450,18 +1654,22 @@ function gameLoop(currentTime) {
 
 
     if (
-        !portfolioPanel.classList.contains(
-            "open"
-        )
-    ) {
+    !portfolioPanel.classList.contains(
+        "open"
+    )
+) {
 
-        movePlayer(deltaTime);
+    movePlayer(deltaTime);
 
-        updateNearbyObject();
+    updatePlayerSpriteAnimation(
+        deltaTime
+    );
 
-        updateDepthSorting();
+    updateNearbyObject();
 
-    }
+    updateDepthSorting();
+
+}
 
 
     requestAnimationFrame(

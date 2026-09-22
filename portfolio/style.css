@@ -2034,7 +2034,7 @@ main > section:not(#game-area) > p {
    ========================================================= */
 
 .projects-leg-left-collision {
-    left: 48px;
+    left: 68px;
     top: 190px;
 
     width: 18px;
@@ -2050,7 +2050,8 @@ main > section:not(#game-area) > p {
     height: 58px;
 }
 
-.collision-box {
+.collision-box,
+.interaction-box {
     position: absolute;
 
     pointer-events: none;
@@ -2820,11 +2821,20 @@ main > section:not(#game-area) {
 
 
 .resume-collision {
-    left: 15px;
-    top: 95px;
+    left: 14px;
+    top: 44px;
 
-    width: 215px;
-    height: 72px;
+    width: 198px;
+    height: 124px;
+}
+
+
+.resume-interaction {
+    left: -2px;
+    top: 28px;
+
+    width: 230px;
+    height: 156px;
 }
 
 
@@ -4736,11 +4746,11 @@ main > section:not(#game-area) {
    ========================================================= */
 
 .projects-collision {
-    left: 20px;
-    top: 100px;
+    left: 48px;
+    top: 132px;
 
-    width: 350px;
-    height: 170px;
+    width: 312px;
+    height: 153px;
 }
 
 
@@ -4752,6 +4762,26 @@ main > section:not(#game-area) {
 
     width: 120px;
     height: 120px;
+}
+
+
+.projects-interaction {
+    left: 38px;
+    top: 78px;
+
+    width: 338px;
+    height: 224px;
+}
+
+
+/* Interests only blocks the grounded part of the cluster */
+
+.interests-collision {
+    left: 8px;
+    top: 86px;
+
+    width: 208px;
+    height: 66px;
 }
 /* =========================================================
    DECORATIVE PLANT COLLISION
@@ -4937,10 +4967,11 @@ main > section:not(#game-area) {
 #player-sprite {
     position: absolute;
 
-    inset: 0;
+    left: -10%;
+    bottom: 0;
 
-    width: 100%;
-    height: 100%;
+    width: 120%;
+    height: 120%;
 
     display: block;
 

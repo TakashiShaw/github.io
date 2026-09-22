@@ -1351,54 +1351,106 @@ function updateNearbyObject() {
             // FLOOR OBJECTS
             //
             // Projects, Resume, Interests, and Contact use
-            // distance to the NEAREST EDGE of their visual.
+            // dedicated interaction boxes when they exist,
+            // then fall back to collision footprints.
             // ==================================================
 
             const visual =
                 object.firstElementChild;
 
+            const customInteractionElements =
+                object.querySelectorAll(
+                    "[data-interaction]"
+                );
 
-            if (!visual) {
+            const customCollisionElements =
+                object.querySelectorAll(
+                    "[data-collision]"
+                );
+
+            const interactionElements =
+                customInteractionElements.length > 0
+                    ? customInteractionElements
+                    : customCollisionElements.length > 0
+                        ? customCollisionElements
+                        : visual
+                            ? [visual]
+                            : [];
+
+            if (
+                interactionElements.length === 0
+            ) {
                 return;
             }
 
 
-            const rect =
-                visual.getBoundingClientRect();
+            let nearestDistance =
+                Infinity;
 
 
-            const closestX =
-                Math.max(
-                    rect.left,
+            for (
+                const interactionElement
+                of interactionElements
+            ) {
+
+                const rect =
+                    interactionElement
+                        .getBoundingClientRect();
+
+
+                if (
+                    rect.width === 0 &&
+                    rect.height === 0
+                ) {
+                    continue;
+                }
+
+
+                const closestX =
+                    Math.max(
+                        rect.left,
+                        Math.min(
+                            playerCenterX,
+                            rect.right
+                        )
+                    );
+
+
+                const closestY =
+                    Math.max(
+                        rect.top,
+                        Math.min(
+                            playerCenterY,
+                            rect.bottom
+                        )
+                    );
+
+
+                const dx =
+                    playerCenterX -
+                    closestX;
+
+
+                const dy =
+                    playerCenterY -
+                    closestY;
+
+
+                distance =
+                    Math.hypot(dx, dy);
+
+
+                nearestDistance =
                     Math.min(
-                        playerCenterX,
-                        rect.right
-                    )
-                );
+                        nearestDistance,
+                        distance
+                    );
 
-
-            const closestY =
-                Math.max(
-                    rect.top,
-                    Math.min(
-                        playerCenterY,
-                        rect.bottom
-                    )
-                );
-
-
-            const dx =
-                playerCenterX -
-                closestX;
-
-
-            const dy =
-                playerCenterY -
-                closestY;
+            }
 
 
             distance =
-                Math.hypot(dx, dy);
+                nearestDistance;
 
 
             const interactionRange = 90;

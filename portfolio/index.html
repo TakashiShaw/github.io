@@ -1234,6 +1234,86 @@
 
     </footer>
 
+    <!-- ==================================================
+         PORTFOLIO ASSISTANT CHATBOT
+         ================================================== -->
+    <div
+        id="portfolio-assistant"
+        class="assistant-closed"
+    >
+
+        <button
+            id="assistant-toggle"
+            type="button"
+            aria-expanded="false"
+            aria-controls="assistant-panel"
+        >
+            Ask About Me
+        </button>
+
+        <section
+            id="assistant-panel"
+            role="dialog"
+            aria-labelledby="assistant-title"
+            aria-hidden="true"
+        >
+
+            <div class="assistant-topbar">
+
+                <h2 id="assistant-title">
+                    Portfolio Assistant
+                </h2>
+
+                <button
+                    id="assistant-close"
+                    type="button"
+                    aria-label="Close Portfolio Assistant"
+                >
+                    ×
+                </button>
+
+            </div>
+
+            <p class="assistant-welcome">
+                Hi, I'm Takashi's Portfolio Assistant. Ask me about his
+                projects, skills, experience, or background.
+            </p>
+
+            <div
+                id="assistant-messages"
+                class="assistant-messages"
+                aria-live="polite"
+            ></div>
+
+            <form id="assistant-form">
+
+                <label
+                    class="assistant-sr-only"
+                    for="assistant-input"
+                >
+                    Message Portfolio Assistant
+                </label>
+
+                <input
+                    id="assistant-input"
+                    type="text"
+                    autocomplete="off"
+                    placeholder="Ask a question..."
+                >
+
+                <button
+                    id="assistant-send"
+                    type="submit"
+                >
+                    Send
+                </button>
+
+            </form>
+
+        </section>
+
+    </div>
+
 <script src="script.js"></script>
 
 </body>

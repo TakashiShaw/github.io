@@ -1733,6 +1733,311 @@ function gameLoop(currentTime) {
 
 
 // ==========================================================
+// PORTFOLIO ASSISTANT CHATBOT
+// ==========================================================
+
+const PORTFOLIO_ASSISTANT_ENDPOINT =
+    "https://portfolio-assistant-backend-sqp8.onrender.com/chat";
+
+
+const assistantWidget =
+    document.querySelector("#portfolio-assistant");
+
+const assistantToggle =
+    document.querySelector("#assistant-toggle");
+
+const assistantPanel =
+    document.querySelector("#assistant-panel");
+
+const assistantCloseButton =
+    document.querySelector("#assistant-close");
+
+const assistantMessages =
+    document.querySelector("#assistant-messages");
+
+const assistantForm =
+    document.querySelector("#assistant-form");
+
+const assistantInput =
+    document.querySelector("#assistant-input");
+
+const assistantSendButton =
+    document.querySelector("#assistant-send");
+
+
+if (
+    assistantWidget &&
+    assistantToggle &&
+    assistantPanel &&
+    assistantCloseButton &&
+    assistantMessages &&
+    assistantForm &&
+    assistantInput &&
+    assistantSendButton
+) {
+
+    let assistantIsWaiting = false;
+
+
+    function openAssistant() {
+
+        assistantWidget.classList.remove(
+            "assistant-closed"
+        );
+
+        assistantWidget.classList.add(
+            "assistant-open"
+        );
+
+        assistantPanel.setAttribute(
+            "aria-hidden",
+            "false"
+        );
+
+        assistantToggle.setAttribute(
+            "aria-expanded",
+            "true"
+        );
+
+        pressedKeys.clear();
+
+        assistantInput.focus();
+
+    }
+
+
+    function closeAssistant() {
+
+        assistantWidget.classList.remove(
+            "assistant-open"
+        );
+
+        assistantWidget.classList.add(
+            "assistant-closed"
+        );
+
+        assistantPanel.setAttribute(
+            "aria-hidden",
+            "true"
+        );
+
+        assistantToggle.setAttribute(
+            "aria-expanded",
+            "false"
+        );
+
+        pressedKeys.clear();
+
+        assistantToggle.focus();
+
+    }
+
+
+    function scrollAssistantMessages() {
+
+        assistantMessages.scrollTop =
+            assistantMessages.scrollHeight;
+
+    }
+
+
+    function addAssistantMessage(
+        messageType,
+        messageText
+    ) {
+
+        const messageElement =
+            document.createElement("div");
+
+        messageElement.classList.add(
+            "assistant-message",
+            messageType
+        );
+
+        messageElement.textContent =
+            messageText;
+
+        assistantMessages.appendChild(
+            messageElement
+        );
+
+        scrollAssistantMessages();
+
+        return messageElement;
+
+    }
+
+
+    function setAssistantWaiting(isWaiting) {
+
+        assistantIsWaiting =
+            isWaiting;
+
+        assistantInput.disabled =
+            isWaiting;
+
+        assistantSendButton.disabled =
+            isWaiting;
+
+    }
+
+
+    async function sendAssistantMessage(event) {
+
+        event.preventDefault();
+
+        const userMessage =
+            assistantInput.value.trim();
+
+        if (
+            !userMessage ||
+            assistantIsWaiting
+        ) {
+            return;
+        }
+
+        addAssistantMessage(
+            "user",
+            userMessage
+        );
+
+        assistantInput.value =
+            "";
+
+        const thinkingMessage =
+            addAssistantMessage(
+                "bot",
+                "Thinking..."
+            );
+
+        thinkingMessage.classList.add(
+            "status"
+        );
+
+        setAssistantWaiting(true);
+
+
+        try {
+
+            const response =
+                await fetch(
+                    PORTFOLIO_ASSISTANT_ENDPOINT,
+                    {
+                        method: "POST",
+                        headers: {
+                            "Content-Type":
+                                "application/json"
+                        },
+                        body:
+                            JSON.stringify({
+                                message:
+                                    userMessage
+                            })
+                    }
+                );
+
+            if (!response.ok) {
+                throw new Error(
+                    "Portfolio Assistant request failed."
+                );
+            }
+
+            const data =
+                await response.json();
+
+            if (
+                !data ||
+                typeof data.reply !== "string"
+            ) {
+                throw new Error(
+                    "Portfolio Assistant response was invalid."
+                );
+            }
+
+            thinkingMessage.textContent =
+                data.reply;
+
+            thinkingMessage.classList.remove(
+                "status",
+                "error"
+            );
+
+        }
+
+        catch (error) {
+
+            thinkingMessage.textContent =
+                "Sorry, the Portfolio Assistant is unavailable right now. Please try again.";
+
+            thinkingMessage.classList.remove(
+                "status"
+            );
+
+            thinkingMessage.classList.add(
+                "error"
+            );
+
+        }
+
+        finally {
+
+            setAssistantWaiting(false);
+
+            assistantInput.focus();
+
+            scrollAssistantMessages();
+
+        }
+
+    }
+
+
+    assistantToggle.addEventListener(
+        "click",
+        openAssistant
+    );
+
+
+    assistantCloseButton.addEventListener(
+        "click",
+        closeAssistant
+    );
+
+
+    assistantForm.addEventListener(
+        "submit",
+        sendAssistantMessage
+    );
+
+
+    assistantWidget.addEventListener(
+        "keydown",
+        function (event) {
+
+            if (event.key === "Escape") {
+                closeAssistant();
+            }
+
+            event.stopPropagation();
+
+        }
+    );
+
+
+    assistantWidget.addEventListener(
+        "keyup",
+        function (event) {
+
+            event.stopPropagation();
+
+        }
+    );
+
+}
+
+
+
+// ==========================================================
 // START GAME
 // ==========================================================
 
